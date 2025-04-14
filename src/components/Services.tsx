@@ -81,47 +81,48 @@ const services = [
 
 export default function Services() {
   return (
-    <section className="min-h-screen pt-32" id="services">
-      <div className="max-w-[1400px] mx-auto px-6">
+    <section className="min-h-screen pt-20 sm:pt-32" id="services">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-16"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 dark:text-white text-zinc-900">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 dark:text-white text-zinc-900">
             Servicios
           </h2>
-          <p className="dark:text-gray-300 text-zinc-600 max-w-2xl mx-auto">
+          <p className="dark:text-gray-300 text-zinc-600 max-w-2xl mx-auto text-sm sm:text-base px-4">
             Ofrezco una gama completa de servicios de desarrollo y diseño web para ayudar a tu negocio a destacar en el mundo digital.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative" style={{ perspective: "1000px" }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 relative" style={{ perspective: "1000px" }}>
           {services.map((service, index) => (
             <ScrollReveal
               key={service.title}
               delay={index * 0.1}
-              className="bg-zinc-100 dark:bg-[#18181b] p-6 rounded-xl hover:bg-zinc-200 dark:hover:bg-[#27272A] transition-all group cursor-pointer"
+              className="bg-zinc-100 dark:bg-[#18181b] p-4 sm:p-6 rounded-xl hover:bg-zinc-200 dark:hover:bg-[#27272A] transition-all group cursor-pointer"
             >
               <motion.div
                 whileHover={{ 
-                  scale: 1.05,
-                  rotateX: 10,
-                  rotateY: 10,
+                  scale: 1.02,
+                  rotateX: 5,
+                  rotateY: 5,
                   transition: { duration: 0.2 }
                 }}
+                className="flex flex-col items-center sm:items-start text-center sm:text-left"
               >
-              <div className="text-black dark:text-[#c5fb00] mb-4 group-hover:scale-110 transition-transform">
-                {service.icon}
-              </div>
-              <h3 className="text-xl font-semibold text-zinc-900 dark:text-[#c5fb00] mb-2">
-                {service.title}
-              </h3>
-              <p className="text-zinc-600 dark:text-gray-400 text-sm">
-                {service.description}
-              </p>
+                <div className="text-black dark:text-[#c5fb00] mb-3 sm:mb-4 group-hover:scale-105 transition-transform">
+                  {service.icon}
+                </div>
+                <h3 className="text-lg sm:text-xl font-semibold text-zinc-900 dark:text-[#c5fb00] mb-2">
+                  {service.title}
+                </h3>
+                <p className="text-zinc-600 dark:text-gray-400 text-sm">
+                  {service.description}
+                </p>
               </motion.div>
             </ScrollReveal>
           ))}

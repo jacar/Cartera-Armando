@@ -12,12 +12,12 @@ export default function Header() {
 
   return (
     <header className="fixed w-full bg-zinc-100 dark:bg-black text-zinc-900 dark:text-white z-50">
-      <div className="max-w-[1400px] mx-auto px-6 py-4 flex items-center justify-between">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <img 
             src="https://www.webcincodev.com/blog/wp-content/uploads/2025/03/dark.png" 
             alt="Logo" 
-            className="h-12 w-auto dark:invert"
+            className="h-8 sm:h-12 w-auto dark:invert"
           />
         </Link>
 
@@ -77,61 +77,81 @@ export default function Header() {
           </div>
           
           <button 
-            className="lg:hidden text-white"
+            className="lg:hidden p-2 hover:bg-zinc-200 dark:hover:bg-zinc-800 rounded-md transition-colors"
             onClick={() => setIsOpen(!isOpen)}
+            aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
           >
             <Menu size={24} className="text-zinc-900 dark:text-white" />
           </button>
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile menu overlay */}
       {isOpen && (
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="lg:hidden bg-black border-t border-gray-800"
-        >
-          <nav className="flex flex-col p-4">
-            {["INICIO", "SOBRE MÍ", "PROYECTOS", "SERVICIOS", "TESTIMONIOS"].map((item) => {
-              const sectionId = {
-                "INICIO": "/",
-                "SOBRE MÍ": "#about",
-                "PROYECTOS": "#work",
-                "SERVICIOS": "#services",
-                "TESTIMONIOS": "#testimonial"
-              }[item];
-              
-              return (
-                <a
-                  key={item}
-                  href={sectionId}
-                  className="py-2 text-sm hover:text-[#c5fb00] transition-colors"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setIsOpen(false);
-                    if (sectionId === "/") {
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                    } else {
-                      document.querySelector(sectionId)?.scrollIntoView({ behavior: "smooth" });
-                    }
-                  }}
-                >
-                  {item}
-                </a>
-              );
-            })}
-            <motion.a
-              href="https://wa.me/573052891719"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileTap={{ scale: 0.95 }}
-              className="mt-4 bg-[#c5fb00] text-black px-6 py-2 rounded-md hover:bg-[#b2e200] transition-colors"
-            >
-              Hablemos →
-            </motion.a>
-          </nav>
-        </motion.div>
+        <>
+          <div 
+            className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+            onClick={() => setIsOpen(false)}
+          />
+          <motion.div
+            initial={{ opacity: 0, x: -300 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -300 }}
+            transition={{ type: "spring", damping: 25 }}
+            className="fixed top-0 left-0 h-full w-[280px] lg:hidden bg-zinc-100 dark:bg-black border-r border-zinc-200 dark:border-zinc-800 z-50 overflow-y-auto"
+          >
+            <div className="flex justify-end p-4">
+              <button
+                onClick={() => setIsOpen(false)}
+                className="p-2 hover:bg-zinc-200 dark:hover:bg-zinc-800 rounded-md transition-colors"
+                aria-label="Cerrar menú"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <nav className="flex flex-col p-4">
+              {["INICIO", "SOBRE MÍ", "PROYECTOS", "SERVICIOS", "TESTIMONIOS"].map((item) => {
+                const sectionId = {
+                  "INICIO": "/",
+                  "SOBRE MÍ": "#about",
+                  "PROYECTOS": "#work",
+                  "SERVICIOS": "#services",
+                  "TESTIMONIOS": "#testimonial"
+                }[item];
+                
+                return (
+                  <a
+                    key={item}
+                    href={sectionId}
+                    className="py-3 px-4 text-sm hover:bg-zinc-200 dark:hover:bg-zinc-800 rounded-md transition-colors"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setIsOpen(false);
+                      if (sectionId === "/") {
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                      } else {
+                        document.querySelector(sectionId)?.scrollIntoView({ behavior: "smooth" });
+                      }
+                    }}
+                  >
+                    {item}
+                  </a>
+                );
+              })}
+              <motion.a
+                href="https://wa.me/573052891719"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileTap={{ scale: 0.95 }}
+                className="mt-6 mx-4 bg-[#c5fb00] text-black px-6 py-3 rounded-md hover:bg-[#b2e200] transition-colors text-center"
+              >
+                Hablemos →
+              </motion.a>
+            </nav>
+          </motion.div>
+        </>
       )}
     </header>
   );

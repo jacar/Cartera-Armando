@@ -122,8 +122,8 @@ export default function Work() {
   });
 
   return (
-    <section className="min-h-screen pt-32" id="work">
-      <div className="max-w-[1400px] mx-auto px-6">
+    <section className="min-h-screen pt-20 md:pt-32" id="work">
+      <div className="max-w-[1400px] mx-auto px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -131,21 +131,21 @@ export default function Work() {
           ref={ref}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 dark:text-white text-zinc-900">Proyectos Destacados</h2>
-          <p className="dark:text-gray-300 text-zinc-600 max-w-2xl mx-auto">
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 dark:text-white text-zinc-900">Proyectos Destacados</h2>
+          <p className="dark:text-gray-300 text-zinc-600 max-w-2xl mx-auto text-sm md:text-base">
             Explora una colección de mis proyectos más impactantes, mostrando soluciones innovadoras
             de diseño y desarrollo web.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 mb-8 md:mb-16">
           {projects.map((project, index) => (
             <ScrollReveal 
               key={project.title} 
               delay={index * 0.2}
               className="bg-zinc-100 dark:bg-[#18181b] rounded-xl overflow-hidden group cursor-pointer hover:scale-[1.02] transition-transform duration-300"
             >
-              <div className="relative h-64 overflow-hidden">
+              <div className="relative h-48 md:h-64 overflow-hidden">
                 <Image 
                   src={project.image} 
                   alt={project.title} 
@@ -157,14 +157,13 @@ export default function Work() {
               <a href={project.link} target="_blank" rel="noopener noreferrer" className="block">
                 <div className="p-6">
                   <span className="text-zinc-900 dark:text-[#c5fb00] text-sm">{project.category}</span>
-                  <h3 className="text-xl font-semibold text-zinc-900 dark:text-white mt-2 mb-3">{project.title}</h3>
+                  <h3 className="text-xl md:text-3xl font-semibold text-zinc-900 dark:text-white mt-2 mb-3">{project.title}</h3>
                   <p className="text-zinc-600 dark:text-gray-300">{project.description}</p>
                 </div>
               </a>
             </ScrollReveal>
           ))}
         </div>
-
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -174,104 +173,104 @@ export default function Work() {
           className="mt-32 mb-32"
         >
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-zinc-900 dark:text-[#c5fb00]">
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 text-zinc-900 dark:text-[#c5fb00]">
               Diseño Web con WordPress: Profesional, Rápido y Optimizado
             </h2>
-            <p className="text-zinc-600 dark:text-white max-w-2xl mx-auto">
+            <p className="text-sm md:text-base text-zinc-600 dark:text-white max-w-2xl mx-auto">
               Una colección de soluciones digitales innovadoras y experiencias web únicas.
             </p>
           </div>
         </motion.div>
 
-          <div className="relative min-h-[600px] mb-32">
-            <div className="absolute inset-0 z-0">
-              <Squares
-                direction="diagonal"
-                speed={1.5}
-                borderColor="#333"
-                squareSize={40}
-                hoverFillColor="#222"
-                className="opacity-30"
-              />
-            </div>
-            <div className="relative z-10">
-              <HeroParallax
-            products={[
-              {
-                title: "Electricidad Puigcerdá",
-                link: "https://www.electricidadpuigcerdaceretanes.com/",
-                thumbnail: "https://www.webcincodev.com/blog/wp-content/uploads/2025/02/acacias-1-600x650-1.png"
-              },
-              {
-                title: "Constructivamente",
-                link: "https://constructivamente.com/",
-                thumbnail: "https://www.webcincodev.com/blog/wp-content/uploads/2025/02/er-1152x1248-1.png"
-              },
-              {
-                title: "Balder IP",
-                link: "https://balderip.com/",
-                thumbnail: "https://www.webcincodev.com/blog/wp-content/uploads/2025/02/859-1152x1248-1.png"
-              },
-              {
-                title: "Descubre",
-                link: "https://descubre.com.co/",
-                thumbnail: "https://www.webcincodev.com/blog/wp-content/uploads/2025/02/descubre2-600x600-1.png"
-              },
-              {
-                title: "GC Jobs y Ambiente",
-                link: "https://www.gcjobrasyambiente.com/",
-                thumbnail: "https://www.webcincodev.com/blog/wp-content/uploads/2025/02/cabas-jacome1-1256x1256-1.jpeg"
-              },
-              {
-                title: "JL Stately Bulldogs",
-                link: "https://jlstatelybulldogs.com/",
-                thumbnail: "https://www.webcincodev.com/blog/wp-content/uploads/2025/02/jl-1152x1248-1.png"
-              },
-              {
-                title: "Consultorio Odontológico La 78",
-                link: "https://www.consultorioodontologicola78.com/",
-                thumbnail: "https://www.webcincodev.com/blog/wp-content/uploads/2025/02/78-1152x1248-1.png"
-              },
-              {
-                title: "Arepas La Mejor",
-                link: "https://arepaslamejor.com/",
-                thumbnail: "https://www.webcincodev.com/blog/wp-content/uploads/2025/02/Generador-QR-8.png"
-              },
-              {
-                title: "Legal Aid DC",
-                link: "https://www.legalaiddc.org/",
-                thumbnail: "https://www.webcincodev.com/blog/wp-content/uploads/2025/02/legal-400x433-1.png"
-              },
-              {
-                title: "Strong Mero Power",
-                link: "http://strongmeropower.com/",
-                thumbnail: "https://www.webcincodev.com/blog/wp-content/uploads/2025/03/FireShot-Capture-010-Repuestos-para-altavoces-en-Colombia-Fabricamos-Bobinas_-www.strongmeropower.com_.png"
-              },
-              {
-                title: "La Lupa",
-                link: "https://lalupa.co/2024/",
-                thumbnail: "https://www.webcincodev.com/blog/wp-content/uploads/2025/02/lupa-600x650-1.png"
-              },
-              {
-                title: "Fresno Shop",
-                link: "https://fresnoshop.co/produccion/",
-                thumbnail: "https://www.webcincodev.com/blog/wp-content/uploads/2025/03/fres.png"
-              }
-            ]}
-          />
-            </div>
+        <div className="relative min-h-[400px] md:min-h-[600px] mb-16 md:mb-32">
+          <div className="absolute inset-0 z-0">
+            <Squares
+              direction="diagonal"
+              speed={1.5}
+              borderColor="#333"
+              squareSize={40}
+              hoverFillColor="#222"
+              className="opacity-30"
+            />
           </div>
+          <div className="relative z-10">
+            <HeroParallax
+              products={[
+                {
+                  title: "Electricidad Puigcerdá",
+                  link: "https://www.electricidadpuigcerdaceretanes.com/",
+                  thumbnail: "https://www.webcincodev.com/blog/wp-content/uploads/2025/02/acacias-1-600x650-1.png"
+                },
+                {
+                  title: "Constructivamente",
+                  link: "https://constructivamente.com/",
+                  thumbnail: "https://www.webcincodev.com/blog/wp-content/uploads/2025/02/er-1152x1248-1.png"
+                },
+                {
+                  title: "Balder IP",
+                  link: "https://balderip.com/",
+                  thumbnail: "https://www.webcincodev.com/blog/wp-content/uploads/2025/02/859-1152x1248-1.png"
+                },
+                {
+                  title: "Descubre",
+                  link: "https://descubre.com.co/",
+                  thumbnail: "https://www.webcincodev.com/blog/wp-content/uploads/2025/02/descubre2-600x600-1.png"
+                },
+                {
+                  title: "GC Jobs y Ambiente",
+                  link: "https://www.gcjobrasyambiente.com/",
+                  thumbnail: "https://www.webcincodev.com/blog/wp-content/uploads/2025/02/cabas-jacome1-1256x1256-1.jpeg"
+                },
+                {
+                  title: "JL Stately Bulldogs",
+                  link: "https://jlstatelybulldogs.com/",
+                  thumbnail: "https://www.webcincodev.com/blog/wp-content/uploads/2025/02/jl-1152x1248-1.png"
+                },
+                {
+                  title: "Consultorio Odontológico La 78",
+                  link: "https://www.consultorioodontologicola78.com/",
+                  thumbnail: "https://www.webcincodev.com/blog/wp-content/uploads/2025/02/78-1152x1248-1.png"
+                },
+                {
+                  title: "Arepas La Mejor",
+                  link: "https://arepaslamejor.com/",
+                  thumbnail: "https://www.webcincodev.com/blog/wp-content/uploads/2025/02/Generador-QR-8.png"
+                },
+                {
+                  title: "Legal Aid DC",
+                  link: "https://www.legalaiddc.org/",
+                  thumbnail: "https://www.webcincodev.com/blog/wp-content/uploads/2025/02/legal-400x433-1.png"
+                },
+                {
+                  title: "Strong Mero Power",
+                  link: "http://strongmeropower.com/",
+                  thumbnail: "https://www.webcincodev.com/blog/wp-content/uploads/2025/03/FireShot-Capture-010-Repuestos-para-altavoces-en-Colombia-Fabricamos-Bobinas_-www.strongmeropower.com_.png"
+                },
+                {
+                  title: "La Lupa",
+                  link: "https://lalupa.co/2024/",
+                  thumbnail: "https://www.webcincodev.com/blog/wp-content/uploads/2025/02/lupa-600x650-1.png"
+                },
+                {
+                  title: "Fresno Shop",
+                  link: "https://fresnoshop.co/produccion/",
+                  thumbnail: "https://www.webcincodev.com/blog/wp-content/uploads/2025/03/fres.png"
+                }
+              ]}
+            />
+          </div>
+        </div>
 
         <div className="mt-32">
-          <ContainerScroll titleComponent={<h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-zinc-900 dark:text-white">
+          <ContainerScroll titleComponent={<h2 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 text-zinc-900 dark:text-white">
                 Reparo tu WordPress
               </h2>}>
-            <div className="h-full w-full bg-zinc-100 rounded-2xl p-8 flex flex-col md:flex-row items-center gap-8">
+            <div className="h-full w-full bg-zinc-100 rounded-2xl p-4 md:p-8 flex flex-col md:flex-row items-center gap-4 md:gap-8">
               <div className="w-full md:w-1/2">
-                <h3 className="text-2xl md:text-3xl font-bold text-zinc-900 mb-6">
+                <h3 className="text-xl md:text-3xl font-bold text-zinc-900 mb-4 md:mb-6">
                   WordPress en Buenas Manos
                 </h3>
-                <p className="text-zinc-600 mb-8">
+                <p className="text-sm md:text-base text-zinc-600 mb-6 md:mb-8">
                   ¿Por qué elegir elegirme?
                 </p>
 
@@ -286,39 +285,39 @@ export default function Work() {
               }} className="space-y-4">
                   <Accordion.Root type="single" collapsible className="space-y-4">
                     <AccordionItem value="item-1" className="border-none">
-                      <AccordionTrigger className="bg-zinc-200 dark:bg-[#27272A] p-6 rounded-xl hover:bg-zinc-300 dark:hover:bg-[#323232] transition-colors">
-                        <h4 className="text-lg font-semibold text-zinc-900 dark:text-[#c5fb00]">
+                      <AccordionTrigger className="bg-zinc-200 dark:bg-[#27272A] p-4 md:p-6 rounded-xl hover:bg-zinc-300 dark:hover:bg-[#323232] transition-colors">
+                        <h4 className="text-base md:text-lg font-semibold text-zinc-900 dark:text-[#c5fb00]">
                           Relaciones a Largo Plazo
                         </h4>
                       </AccordionTrigger>
-                      <AccordionContent className="bg-zinc-200 dark:bg-[#27272A] px-6 pb-6 mt-1 rounded-xl">
-                        <p className="text-zinc-600 dark:text-gray-300 text-sm">
+                      <AccordionContent className="bg-zinc-200 dark:bg-[#27272A] px-4 md:px-6 pb-4 md:pb-6 mt-1 rounded-xl">
+                        <p className="text-xs md:text-sm text-zinc-600 dark:text-gray-300">
                           He cultivado relaciones duraderas con diversas empresas, lo que demuestra mi compromiso con la satisfacción del cliente y la construcción de asociaciones sólidas.
                         </p>
                       </AccordionContent>
                     </AccordionItem>
 
                     <AccordionItem value="item-2" className="border-none">
-                      <AccordionTrigger className="bg-zinc-200 dark:bg-[#27272A] p-6 rounded-xl hover:bg-zinc-300 dark:hover:bg-[#323232] transition-colors">
-                        <h4 className="text-lg font-semibold text-zinc-900 dark:text-[#c5fb00]">
+                      <AccordionTrigger className="bg-zinc-200 dark:bg-[#27272A] p-4 md:p-6 rounded-xl hover:bg-zinc-300 dark:hover:bg-[#323232] transition-colors">
+                        <h4 className="text-base md:text-lg font-semibold text-zinc-900 dark:text-[#c5fb00]">
                           Resultados Comprobados
                         </h4>
                       </AccordionTrigger>
-                      <AccordionContent className="bg-zinc-200 dark:bg-[#27272A] px-6 pb-6 mt-1 rounded-xl">
-                        <p className="text-zinc-600 dark:text-gray-300 text-sm">
+                      <AccordionContent className="bg-zinc-200 dark:bg-[#27272A] px-4 md:px-6 pb-4 md:pb-6 mt-1 rounded-xl">
+                        <p className="text-xs md:text-sm text-zinc-600 dark:text-gray-300">
                           Mi historial de éxito en la resolución de desafíos técnicos y la mejora de sitios web respalda la eficacia de mis servicios. Puedes confiar en que tu sitio estará en buenas manos.
                         </p>
                       </AccordionContent>
                     </AccordionItem>
 
                     <AccordionItem value="item-3" className="border-none">
-                      <AccordionTrigger className="bg-zinc-200 dark:bg-[#27272A] p-6 rounded-xl hover:bg-zinc-300 dark:hover:bg-[#323232] transition-colors">
-                        <h4 className="text-lg font-semibold text-zinc-900 dark:text-[#c5fb00]">
+                      <AccordionTrigger className="bg-zinc-200 dark:bg-[#27272A] p-4 md:p-6 rounded-xl hover:bg-zinc-300 dark:hover:bg-[#323232] transition-colors">
+                        <h4 className="text-base md:text-lg font-semibold text-zinc-900 dark:text-[#c5fb00]">
                           Servicios Destacados
                         </h4>
                       </AccordionTrigger>
-                      <AccordionContent className="bg-zinc-200 dark:bg-[#27272A] px-6 pb-6 mt-1 rounded-xl">
-                        <ul className="text-zinc-600 text-sm space-y-2">
+                      <AccordionContent className="bg-zinc-200 dark:bg-[#27272A] px-4 md:px-6 pb-4 md:pb-6 mt-1 rounded-xl">
+                        <ul className="text-xs md:text-sm text-zinc-600 space-y-2">
                           <li>• Resolución de Problemas Técnicos: Abordo y soluciono rápidamente problemas técnicos, desde errores de código hasta problemas de compatibilidad.</li>
                           <li>• Optimización de Rendimiento: Mejoro la velocidad y eficiencia de tu sitio web para una experiencia del usuario excepcional.</li>
                           <li>• Seguridad Reforzada: Implemento medidas de seguridad robustas para proteger tu sitio.</li>
