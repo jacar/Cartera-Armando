@@ -2,11 +2,11 @@ import React from "react";
 import "@/styles/globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { SplashCursor } from "@/components/ui/splash-cursor";
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 import { ThemeProvider } from "@/components/theme-provider";
 import { PageTransition } from "@/components/ui/page-transition";
+import ClientSplashCursor from "@/components/ui/ClientSplashCursor";
 
 export const metadata: Metadata = {
   title: "Armando Ovalle Jácome - Experto en Desarrollo Web WordPress y SEO",
@@ -54,7 +54,8 @@ export default function RootLayout({
           enableSystem={false}
           storageKey="theme"
         >
-          <SplashCursor colorMode="dark" />
+          {/* SplashCursor solo en cliente y solo desktop */}
+          <ClientSplashCursor />
           <Header />
           <PageTransition>
             {children}

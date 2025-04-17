@@ -8,9 +8,12 @@ import Image from "next/image";
 import { ArrowRight, ChevronDown, MessageSquare } from "lucide-react";
 import { GithubLogo, Article, Coffee, BehanceLogo } from "@phosphor-icons/react";
 import Link from "next/link";
-import { SplineScene } from "@/components/ui/splite";
+import dynamic from "next/dynamic";
 import { useTheme } from "next-themes";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@radix-ui/react-tooltip";
+
+// Lazy load SplineScene for performance
+const LazySplineScene = dynamic(() => import("@/components/ui/splite").then(mod => mod.SplineScene), { ssr: false, loading: () => <div className="w-full h-full flex items-center justify-center"><span className="loader" /></div> });
 
 export default function Home() {
   const { theme, setTheme } = useTheme();
@@ -39,126 +42,68 @@ export default function Home() {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-4 pb-[120px] sm:px-6">
-      <div className="absolute inset-0 z-0 w-screen" style={{
-        marginLeft: 'calc(-50vw + 50%)',
-        marginRight: 'calc(-50vw + 50%)'
-      }}>
-        <Squares
-          direction="diagonal"
-          speed={1.5}
-          borderColor="#333"
-          squareSize={40}
-          hoverFillColor="#222"
-          className="opacity-30"
-        />
-        <motion.div 
-          className="absolute inset-0"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <div
-            className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/40 transition-all duration-300"
+    (
+      <section className="relative min-h-screen flex items-center justify-center px-4 pb-[120px] sm:px-6">
+        <div className="absolute inset-0 z-0 w-screen" style={{
+          marginLeft: 'calc(-50vw + 50%)',
+          marginRight: 'calc(-50vw + 50%)'
+        }}>
+          <Squares
+            direction="diagonal"
+            speed={1.5}
+            borderColor="#333"
+            squareSize={40}
+            hoverFillColor="#222"
+            className="opacity-30"
           />
-        </motion.div>
+          <motion.div 
+            className="absolute inset-0"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div
+              className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/40 transition-all duration-300"
+            />
+          </motion.div>
 
-        <motion.div 
-          className="absolute inset-0"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <div
-            className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50 transition-all duration-300"
-            style={{
-              opacity: theme === 'dark' ? 1 : 0
-            }}
-          />
-        </motion.div>
-      </div>
+          <motion.div 
+            className="absolute inset-0"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div
+              className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50 transition-all duration-300"
+              style={{
+                opacity: theme === 'dark' ? 1 : 0
+              }}
+            />
+          </motion.div>
+        </div>
 
-      <div className="max-w-[1400px] mx-auto w-full z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-          <motion.div initial={{
-            opacity: 0,
-            x: -50
-          }} animate={{
-            opacity: 1,
-            x: 0
-          }} transition={{
-            duration: 0.8
-          }} className="text-center lg:text-left">
-            <div className="inline-block px-4 sm:px-6 py-2 bg-zinc-100 dark:bg-[#18181b] rounded-full mb-4 sm:mb-6 mx-auto lg:mx-0">
-              <span className="text-sm sm:text-base text-zinc-900 dark:text-[#c5fb00]">Tu web no tiene</span>
-              <span className="ml-2 text-sm sm:text-base text-zinc-900 dark:text-white">por qué ser aburrida</span>
-            </div>
+        <div className="max-w-[1400px] mx-auto w-full z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            <motion.div initial={{
+              opacity: 0,
+              x: -50
+            }} animate={{
+              opacity: 1,
+              x: 0
+            }} transition={{
+              duration: 0.8
+            }} className="text-center lg:text-left">
+              <div className="inline-block px-4 sm:px-6 py-2 bg-zinc-100 dark:bg-[#18181b] rounded-full mb-4 sm:mb-6 mx-auto lg:mx-0">
+                <span className="text-sm sm:text-base text-zinc-900 dark:text-[#c5fb00]">Tu web no tiene</span>
+                <span className="ml-2 text-sm sm:text-base text-zinc-900 dark:text-white">por qué ser aburrida</span>
+              </div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-4 sm:mb-6">
-              Diseño y
-              <br />
-              Desarrollo
-              <br />
-              <span className="relative">
-                Web
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <motion.span className="absolute -right-4 -top-4" initial={{
-                        scale: 0,
-                        y: 0
-                      }} animate={{
-                        scale: 1,
-                        y: [-5, 5, -5]
-                      }} transition={{
-                        scale: {
-                          delay: 0.5,
-                          duration: 0.3
-                        },
-                        y: {
-                          repeat: Infinity,
-                          duration: 2,
-                          ease: "easeInOut"
-                        }
-                      }}>
-                        <span className="text-4xl cursor-help group/tooltip group-hover:tooltip-visible">
-                          👋
-                          <div className="fixed z-50 tooltip-transition inset-0 flex items-center justify-center px-4">
-                            <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-xl w-full max-w-[300px]">
-                              <div className="p-5">
-                                <img 
-                                  src="https://www.webcincodev.com/blog/wp-content/uploads/2025/03/ovalle_.png" 
-                                  alt="Armando Ovalle" 
-                                  className="w-16 h-16 rounded-full object-cover border-2 border-[#c5fb00] mx-auto" 
-                                />
-                                <h3 className="mt-3 text-base font-medium text-zinc-900 dark:text-white text-center">
-                                  Armando Ovalle
-                                </h3>
-                                <p className="text-xs text-zinc-500 dark:text-gray-400 text-center">
-                                  Desarrollador Web Senior
-                                </p>
-                                <div className="mt-4 grid grid-cols-3 gap-2">
-                                  <div className="text-center">
-                                    <p className="text-[10px] font-medium text-zinc-900 dark:text-white">Ubicación</p>
-                                    <p className="text-[10px] text-zinc-500">Colombia</p>
-                                  </div>
-                                  <div className="text-center">
-                                    <p className="text-[10px] font-medium text-zinc-900 dark:text-white">Experiencia</p>
-                                    <p className="text-[10px] text-zinc-500">+5 años</p>
-                                  </div>
-                                  <div className="text-center">
-                                    <p className="text-[10px] font-medium text-zinc-900 dark:text-white">Proyectos</p>
-                                    <p className="text-[10px] text-zinc-500">50+</p>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </motion.span>
-                      </TooltipTrigger>
-                    </Tooltip>
-                  </TooltipProvider>
-                </span>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-4 sm:mb-6">
+                Diseño y
+                <br />
+                Desarrollo
+                <br />
+                <span>Web</span>
               </h1>
 
               <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-8 mt-6 lg:mt-12 justify-center lg:justify-start">
@@ -221,19 +166,27 @@ export default function Home() {
             >
               <div className="w-full h-full rounded-2xl overflow-hidden">
                 {isMobile ? (
-                  <img
-                    src={mobileImage}
-                    alt="Mobile Hero"
-                    className="w-full h-full object-cover"
-                  />
+                  <div className="w-full h-full aspect-video rounded-2xl overflow-hidden relative">
+                    <img
+                      src="https://www.webcincodev.com/blog/wp-content/uploads/2025/03/Scene-12.png"
+                      alt="Web Development Illustration"
+                      className="absolute inset-0 w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                    <div className="absolute bottom-0 left-0 w-full bg-black/60 py-2">
+                      <h3 className="text-base sm:text-lg font-semibold text-white text-center px-2">
+                        Tu sitio no tiene por qué ser aburrido
+                      </h3>
+                    </div>
+                  </div>
                 ) : (
-                  <SplineScene className="w-full h-full" />
+                  <LazySplineScene className="w-full h-full" />
                 )}
               </div>
             </motion.div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    )
   );
 }

@@ -6,19 +6,29 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { CircleDashed } from "@phosphor-icons/react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useTheme } from "next-themes";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const { theme } = useTheme();
 
   return (
     <header className="fixed w-full bg-zinc-100 dark:bg-black text-zinc-900 dark:text-white z-50">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
-          <img 
-            src="https://www.webcincodev.com/blog/wp-content/uploads/2025/03/dark.png" 
-            alt="Logo" 
-            className="h-8 sm:h-12 w-auto dark:invert"
-          />
+          {theme === "dark" ? (
+            <img
+              src="https://www.webcincodev.com/blog/wp-content/uploads/2025/04/lofoweb2.svg"
+              alt="Logo Dark"
+              className="h-8 sm:h-12 w-auto"
+            />
+          ) : (
+            <img
+              src="https://www.webcincodev.com/blog/wp-content/uploads/2025/04/lofoweb2-1e.png"
+              alt="Logo Color"
+              className="h-8 sm:h-12 w-auto"
+            />
+          )}
         </Link>
 
         <nav className="hidden lg:flex items-center gap-8">
