@@ -6,9 +6,29 @@
 
 html, body {
   overflow-x: hidden;
+  overflow-y: auto;
   width: 100%;
+  height: 100%;
   position: relative;
   font-family: 'Unbounded', sans-serif;
+  -webkit-overflow-scrolling: touch; /* Habilita scroll con inercia en iOS */
+  scroll-behavior: smooth;
+  touch-action: pan-y; /* Permite explícitamente scroll vertical táctil */
+}
+
+/* Estilos específicos para dispositivos móviles */
+@media (max-width: 1024px) {
+  body {
+    overscroll-behavior-y: auto;
+    touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Asegurar que todos los elementos con scroll tengan soporte táctil adecuado */
+  * {
+    -webkit-overflow-scrolling: touch;
+    touch-action: manipulation;
+  }
 }
 
 @layer base {
