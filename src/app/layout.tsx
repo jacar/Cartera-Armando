@@ -8,6 +8,13 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { PageTransition } from "@/components/ui/page-transition";
 import ClientSplashCursor from "@/components/ui/ClientSplashCursor";
 import MobileOptimizer from "@/components/MobileOptimizer";
+import dynamic from "next/dynamic";
+
+// Importar la solución de scroll para móviles de forma dinámica (solo cliente)
+const MobileScrollFix = dynamic(
+  () => import("@/components/ui/MobileScrollFix"),
+  { ssr: false }
+);
 
 export const metadata: Metadata = {
   title: "Armando Ovalle Jácome - Experto en Desarrollo Web WordPress y SEO",
@@ -61,6 +68,9 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="bg-background text-foreground overscroll-y-auto touch-auto">
+        {/* Solución radical para el scroll móvil - se carga solo en el cliente */}
+        <MobileScrollFix />
+        
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
