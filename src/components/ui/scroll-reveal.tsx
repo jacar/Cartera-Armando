@@ -10,11 +10,11 @@ interface ScrollRevealProps {
   className?: string;
 }
 
-export function ScrollReveal({ 
-  children, 
-  delay = 0, 
+export function ScrollReveal({
+  children,
+  delay = 0,
   duration = 0.6,
-  className = "" 
+  className = "",
 }: ScrollRevealProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -27,7 +27,7 @@ export function ScrollReveal({
       transition={{
         duration: duration,
         delay: delay,
-        ease: [0.21, 0.47, 0.32, 0.98]
+        ease: [0.21, 0.47, 0.32, 0.98],
       }}
       className={className}
     >

@@ -53,27 +53,24 @@ export function AnimatedTestimonials({
   };
 
   return (
-    <div className={cn("w-full max-w-[100vw] px-4 py-20 mb-20", className)}>
-      <div className="relative grid grid-cols-2 gap-12 max-w-[2000px] mx-auto">
-        <TestimonialImage 
-          testimonials={testimonials}
-          active={active}
-        />
-        <div className="flex flex-col py-12 px-8 bg-pink-50 dark:bg-[#18181b] rounded-xl h-[600px] border border-pink-200 dark:border-pink-900">
+    <div className={cn("mb-20 w-full max-w-[100vw] px-4 py-20", className)}>
+      <div className="relative mx-auto grid max-w-[2000px] grid-cols-2 gap-12">
+        <TestimonialImage testimonials={testimonials} active={active} />
+        <div className="flex h-[600px] flex-col rounded-xl border border-pink-200 bg-pink-50 px-8 py-12 dark:border-pink-900 dark:bg-[#18181b]">
           <div className="flex-grow">
             <TestimonialContent testimonial={testimonials[active]} />
             <div className="flex gap-4 pt-12 md:pt-0">
               <button
                 onClick={handlePrev}
-                className="h-7 w-7 rounded-full bg-secondary flex items-center justify-center group/button"
+                className="group/button flex h-7 w-7 items-center justify-center rounded-full bg-secondary"
               >
-                <IconArrowLeft className="h-5 w-5 text-foreground group-hover/button:rotate-12 transition-transform duration-300" />
+                <IconArrowLeft className="h-5 w-5 text-foreground transition-transform duration-300 group-hover/button:rotate-12" />
               </button>
               <button
                 onClick={handleNext}
-                className="h-7 w-7 rounded-full bg-secondary flex items-center justify-center group/button"
+                className="group/button flex h-7 w-7 items-center justify-center rounded-full bg-secondary"
               >
-                <IconArrowRight className="h-5 w-5 text-foreground group-hover/button:-rotate-12 transition-transform duration-300" />
+                <IconArrowRight className="h-5 w-5 text-foreground transition-transform duration-300 group-hover/button:-rotate-12" />
               </button>
             </div>
           </div>

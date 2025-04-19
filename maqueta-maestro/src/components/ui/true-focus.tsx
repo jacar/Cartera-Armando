@@ -16,13 +16,21 @@ function TrueFocus({
   const [lastActiveIndex, setLastActiveIndex] = useState(null);
   const containerRef = useRef(null);
   const wordRefs = useRef([]);
-  const [focusRect, setFocusRect] = useState({ x: 0, y: 0, width: 0, height: 0 });
+  const [focusRect, setFocusRect] = useState({
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0,
+  });
 
   useEffect(() => {
     if (!manualMode) {
-      const interval = setInterval(() => {
-        setCurrentIndex((prev) => (prev + 1) % words.length);
-      }, (animationDuration + pauseBetweenAnimations) * 1000);
+      const interval = setInterval(
+        () => {
+          setCurrentIndex((prev) => (prev + 1) % words.length);
+        },
+        (animationDuration + pauseBetweenAnimations) * 1000,
+      );
 
       return () => clearInterval(interval);
     }
@@ -58,7 +66,7 @@ function TrueFocus({
 
   return (
     <div
-      className="relative flex gap-4 justify-center items-center flex-wrap"
+      className="relative flex flex-wrap items-center justify-center gap-4"
       ref={containerRef}
     >
       {words.map((word, index) => {
@@ -67,7 +75,7 @@ function TrueFocus({
           <span
             key={index}
             ref={(el) => (wordRefs.current[index] = el)}
-            className="relative text-[3rem] font-black cursor-pointer"
+            className="relative cursor-pointer text-[3rem] font-black"
             style={{
               filter: manualMode
                 ? isActive
@@ -89,7 +97,7 @@ function TrueFocus({
       })}
 
       <motion.div
-        className="absolute top-0 left-0 pointer-events-none box-border border-0"
+        className="pointer-events-none absolute left-0 top-0 box-border border-0"
         animate={{
           x: focusRect.x,
           y: focusRect.y,
@@ -106,28 +114,28 @@ function TrueFocus({
         }}
       >
         <span
-          className="absolute w-4 h-4 border-[3px] rounded-[3px] top-[-10px] left-[-10px] border-r-0 border-b-0"
+          className="absolute left-[-10px] top-[-10px] h-4 w-4 rounded-[3px] border-[3px] border-b-0 border-r-0"
           style={{
             borderColor: "var(--border-color)",
             filter: "drop-shadow(0 0 4px var(--border-color))",
           }}
         ></span>
         <span
-          className="absolute w-4 h-4 border-[3px] rounded-[3px] top-[-10px] right-[-10px] border-l-0 border-b-0"
+          className="absolute right-[-10px] top-[-10px] h-4 w-4 rounded-[3px] border-[3px] border-b-0 border-l-0"
           style={{
             borderColor: "var(--border-color)",
             filter: "drop-shadow(0 0 4px var(--border-color))",
           }}
         ></span>
         <span
-          className="absolute w-4 h-4 border-[3px] rounded-[3px] bottom-[-10px] left-[-10px] border-r-0 border-t-0"
+          className="absolute bottom-[-10px] left-[-10px] h-4 w-4 rounded-[3px] border-[3px] border-r-0 border-t-0"
           style={{
             borderColor: "var(--border-color)",
             filter: "drop-shadow(0 0 4px var(--border-color))",
           }}
         ></span>
         <span
-          className="absolute w-4 h-4 border-[3px] rounded-[3px] bottom-[-10px] right-[-10px] border-l-0 border-t-0"
+          className="absolute bottom-[-10px] right-[-10px] h-4 w-4 rounded-[3px] border-[3px] border-l-0 border-t-0"
           style={{
             borderColor: "var(--border-color)",
             filter: "drop-shadow(0 0 4px var(--border-color))",
@@ -136,6 +144,6 @@ function TrueFocus({
       </motion.div>
     </div>
   );
-};
+}
 
 export { TrueFocus };

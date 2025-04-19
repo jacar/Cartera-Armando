@@ -1,24 +1,24 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Moon, Sun } from "@phosphor-icons/react"
-import { useTheme } from "next-themes"
-import { motion } from "framer-motion"
+import * as React from "react";
+import { Moon, Sun } from "@phosphor-icons/react";
+import { useTheme } from "next-themes";
+import { motion } from "framer-motion";
 
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme()
-  const [mounted, setMounted] = React.useState(false)
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
-    setMounted(true)
-  }, [])
+    setMounted(true);
+  }, []);
 
-  if (!mounted) return null
+  if (!mounted) return null;
 
   return (
     <motion.button
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-      className="rounded-full p-2 bg-[#18181b] hover:bg-[#27272A] transition-colors relative"
+      className="relative rounded-full bg-[#18181b] p-2 transition-colors hover:bg-[#27272A]"
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
     >
@@ -45,7 +45,7 @@ export function ThemeToggle() {
         <Moon size={20} weight="fill" className="text-[#c5fb00]" />
       </motion.div>
       <span className="sr-only">Toggle theme</span>
-      <div className="w-5 h-5" />
+      <div className="h-5 w-5" />
     </motion.button>
-  )
+  );
 }

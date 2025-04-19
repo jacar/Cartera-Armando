@@ -13,28 +13,32 @@ export default function Header() {
   const { theme } = useTheme();
 
   return (
-    <header className="fixed z-50 w-full bg-zinc-100 text-zinc-900 dark:bg-black dark:text-white">
+    <header className="fixed top-0 left-0 z-50 w-full bg-zinc-100 text-zinc-900 dark:bg-black dark:text-white">
       <div className="mx-auto flex max-w-[1400px] items-center justify-between px-4 py-3 sm:px-6 sm:py-4">
         <Link href="/" className="flex items-center gap-2">
-          {theme === "dark" ? (
+          {/* Mostrar logo oscuro solo si theme es 'dark', en cualquier otro caso (light, system, undefined), mostrar el claro */}
+          {theme === 'dark' ? (
             <img
               src="https://www.webcincodev.com/blog/wp-content/uploads/2025/04/lofoweb2.svg"
               alt="Logo Dark"
               className="h-8 w-auto min-w-[100px] sm:h-12"
               loading="eager"
+              style={{ height: '48px', width: 'auto', display: 'block' }}
               width="140"
               height="48"
             />
-          ) : (
+          ) : ( // Incluye theme 'light', 'system', o undefined inicial
             <img
               src="https://www.webcincodev.com/blog/wp-content/uploads/2025/04/lofoweb2-1e.png"
               alt="Logo Color"
               className="h-8 w-auto min-w-[100px] sm:h-12"
               loading="eager"
+              style={{ height: '48px', width: 'auto', display: 'block' }}
               width="140"
               height="48"
             />
           )}
+          {/* Fin de la lógica del logo */}
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">

@@ -2,35 +2,38 @@
 
 import { motion } from "framer-motion";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
-import { 
-  Code2, 
-  Palette, 
-  Globe, 
-  Smartphone, 
-  Search, 
-  ShoppingCart, 
-  Settings, 
+import {
+  Code2,
+  Palette,
+  Globe,
+  Smartphone,
+  Search,
+  ShoppingCart,
+  Settings,
   Zap,
   MessageSquare,
   Users,
-  Target
+  Target,
 } from "lucide-react";
 
 const services = [
   {
     icon: <Code2 size={32} />,
     title: "Desarrollo WordPress",
-    description: "Creación y mantenimiento de sitios WordPress personalizados y optimizados.",
+    description:
+      "Creación y mantenimiento de sitios WordPress personalizados y optimizados.",
   },
   {
     icon: <Globe size={32} />,
     title: "Desarrollo Web",
-    description: "Desarrollo de aplicaciones web modernas con las últimas tecnologías.",
+    description:
+      "Desarrollo de aplicaciones web modernas con las últimas tecnologías.",
   },
   {
     icon: <Palette size={32} />,
     title: "Diseño UI/UX",
-    description: "Diseño de interfaces intuitivas y experiencias de usuario excepcionales.",
+    description:
+      "Diseño de interfaces intuitivas y experiencias de usuario excepcionales.",
   },
   {
     icon: <Smartphone size={32} />,
@@ -40,17 +43,20 @@ const services = [
   {
     icon: <Search size={32} />,
     title: "SEO",
-    description: "Optimización para motores de búsqueda y mejora de visibilidad online.",
+    description:
+      "Optimización para motores de búsqueda y mejora de visibilidad online.",
   },
   {
     icon: <ShoppingCart size={32} />,
     title: "E-commerce",
-    description: "Desarrollo de tiendas online con WooCommerce y otras plataformas.",
+    description:
+      "Desarrollo de tiendas online con WooCommerce y otras plataformas.",
   },
   {
     icon: <Settings size={32} />,
     title: "Mantenimiento",
-    description: "Servicios de mantenimiento y actualización continua de sitios web.",
+    description:
+      "Servicios de mantenimiento y actualización continua de sitios web.",
   },
   {
     icon: <Zap size={32} />,
@@ -60,7 +66,8 @@ const services = [
   {
     icon: <MessageSquare size={32} />,
     title: "Contenido Redes",
-    description: "Creación y gestión de contenido estratégico para redes sociales.",
+    description:
+      "Creación y gestión de contenido estratégico para redes sociales.",
   },
   {
     icon: <Users size={32} />,
@@ -70,57 +77,63 @@ const services = [
   {
     icon: <Target size={32} />,
     title: "Marketing Digital",
-    description: "Estrategias efectivas para alcanzar y convertir tu audiencia objetivo.",
+    description:
+      "Estrategias efectivas para alcanzar y convertir tu audiencia objetivo.",
   },
   {
     icon: <Palette size={32} />,
     title: "Branding y Logos",
-    description: "Diseño de identidad de marca y logotipos que destacan tu negocio.",
+    description:
+      "Diseño de identidad de marca y logotipos que destacan tu negocio.",
   },
 ];
 
 export default function Services() {
   return (
     <section className="min-h-screen pt-20 sm:pt-32" id="services">
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6">
+      <div className="mx-auto max-w-[1400px] px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-8 sm:mb-16"
+          className="mb-8 text-center sm:mb-16"
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 dark:text-white text-zinc-900">
+          <h2 className="mb-4 text-2xl font-bold text-zinc-900 dark:text-white sm:mb-6 sm:text-3xl md:text-4xl lg:text-5xl">
             Servicios
           </h2>
-          <p className="dark:text-gray-300 text-zinc-600 max-w-2xl mx-auto text-sm sm:text-base px-4">
-            Ofrezco una gama completa de servicios de desarrollo y diseño web para ayudar a tu negocio a destacar en el mundo digital.
+          <p className="mx-auto max-w-2xl px-4 text-sm text-zinc-600 dark:text-gray-300 sm:text-base">
+            Ofrezco una gama completa de servicios de desarrollo y diseño web
+            para ayudar a tu negocio a destacar en el mundo digital.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 relative" style={{ perspective: "1000px" }}>
+        <div
+          className="relative grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4"
+          style={{ perspective: "1000px" }}
+        >
           {services.map((service, index) => (
             <ScrollReveal
               key={service.title}
               delay={index * 0.1}
-              className="bg-zinc-100 dark:bg-[#18181b] p-4 sm:p-6 rounded-xl hover:bg-zinc-200 dark:hover:bg-[#27272A] transition-all group cursor-pointer"
+              className="group cursor-pointer rounded-xl bg-zinc-100 p-4 transition-all hover:bg-zinc-200 dark:bg-[#18181b] dark:hover:bg-[#27272A] sm:p-6"
             >
               <motion.div
-                whileHover={{ 
+                whileHover={{
                   scale: 1.02,
                   rotateX: 5,
                   rotateY: 5,
-                  transition: { duration: 0.2 }
+                  transition: { duration: 0.2 },
                 }}
-                className="flex flex-col items-center sm:items-start text-center sm:text-left"
+                className="flex flex-col items-center text-center sm:items-start sm:text-left"
               >
-                <div className="text-black dark:text-[#c5fb00] mb-3 sm:mb-4 group-hover:scale-105 transition-transform">
+                <div className="mb-3 text-black transition-transform group-hover:scale-105 dark:text-[#c5fb00] sm:mb-4">
                   {service.icon}
                 </div>
-                <h3 className="text-lg sm:text-xl font-semibold text-zinc-900 dark:text-[#c5fb00] mb-2">
+                <h3 className="mb-2 text-lg font-semibold text-zinc-900 dark:text-[#c5fb00] sm:text-xl">
                   {service.title}
                 </h3>
-                <p className="text-zinc-600 dark:text-gray-400 text-sm">
+                <p className="text-sm text-zinc-600 dark:text-gray-400">
                   {service.description}
                 </p>
               </motion.div>

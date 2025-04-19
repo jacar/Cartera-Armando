@@ -1,12 +1,15 @@
 "use client";
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 /**
  * Solución de emergencia para forzar el scroll táctil en dispositivos móviles
  * Aplica una solución directa al problema de scroll en móviles
  */
 export default function MobileScrollFix() {
+  const isTouching = useRef(false);
+  const lastY = useRef(0);
+
   useEffect(() => {
     // Solo ejecutar en el cliente y en dispositivos móviles
     if (typeof window === 'undefined') return;
@@ -16,88 +19,59 @@ export default function MobileScrollFix() {
     ) || window.innerWidth <= 1024;
     
     if (!isMobile) return;
-    
-    // Solución radical: eliminar cualquier listener que pueda estar interfiriendo
-    const originalAddEventListener = EventTarget.prototype.addEventListener;
-    const originalRemoveEventListener = EventTarget.prototype.removeEventListener;
-    
-    // Restringir eventos que podrían bloquear el scroll
-    EventTarget.prototype.addEventListener = function(type, listener, options) {
-      if (type === 'touchstart' || type === 'touchmove' || type === 'wheel') {
-        // Asegurar que todos los eventos táctiles sean pasivos
-        const newOptions = options || {};
-        if (typeof newOptions === 'object') {
-          newOptions.passive = true;
-        } else {
-          options = { passive: true };
-        }
-      }
-      return originalAddEventListener.call(this, type, listener, options);
+
+    const preventDefault = (e: Event) => {
+      // No prevenir por defecto, la lógica decidirá
     };
-    
-    // Forzar el comportamiento de scroll nativo
-    document.documentElement.style.cssText = `
-      overflow-y: auto !important;
-      -webkit-overflow-scrolling: touch !important;
-      touch-action: pan-y !important;
-      position: static !important;
-      height: auto !important;
-      overscroll-behavior-y: auto !important;
-    `;
-    
-    document.body.style.cssText = `
-      overflow-y: auto !important;
-      -webkit-overflow-scrolling: touch !important;
-      touch-action: pan-y !important;
-      position: static !important;
-      height: auto !important;
-      overscroll-behavior-y: auto !important;
-    `;
-    
-    // Eliminar cualquier overflow: hidden que pueda estar bloqueando el scroll
-    const elements = document.querySelectorAll('*');
-    for (let i = 0; i < elements.length; i++) {
-      const el = elements[i];
-      const style = window.getComputedStyle(el);
-      if (style.position === 'fixed' && el.id !== 'headerFixed') {
-        el.style.pointerEvents = 'none';
+
+    const handleTouchStart = (e: TouchEvent) => {
+      if (e.touches.length === 1) {
+        isTouching.current = true;
+        lastY.current = e.touches[0].clientY;
       }
-      if (style.overflow === 'hidden' || style.overflowY === 'hidden') {
-        el.style.overflow = 'visible';
-        el.style.overflowY = 'auto';
-      }
-    }
-    
-    // Aplicar una solución CSS directa a través de un estilo global
-    const styleEl = document.createElement('style');
-    styleEl.textContent = `
-      html, body {
-        overflow-y: auto !important;
-        -webkit-overflow-scrolling: touch !important;
-        touch-action: pan-y !important;
-        overscroll-behavior-y: auto !important;
-        height: auto !important;
-      }
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!isTouching.current) return;
+
+      const currentY = e.touches[0].clientY;
+      // Permitir scroll si el movimiento es principalmente vertical
+      // Podríamos añadir una comprobación de deltaX si fuera necesario
+      // Si no queremos prevenir el scroll vertical, no llamamos a e.preventDefault()
       
-      * {
-        -webkit-tap-highlight-color: transparent;
-      }
-      
-      .pointer-events-none {
-        pointer-events: none !important;
-      }
-      
-      [style*="position: fixed"] {
-        pointer-events: none !important;
-      }
-      
-      /* Excepción para elementos interactivos específicos */
-      button, a, input, select, textarea, [role="button"] {
-        pointer-events: auto !important;
-      }
-    `;
-    document.head.appendChild(styleEl);
+      // Ejemplo: si quisiéramos prevenir el scroll horizontal, haríamos algo como:
+      // const currentX = e.touches[0].clientX;
+      // if (Math.abs(currentX - lastX.current) > Math.abs(currentY - lastY.current)) {
+      //   e.preventDefault();
+      // }
+
+      lastY.current = currentY;
+    };
+
+    const handleTouchEnd = () => {
+      isTouching.current = false;
+    };
+
+    // Importante: passive: false es necesario para poder llamar a preventDefault
+    // si decidimos hacerlo dentro de handleTouchMove.
+    // Si NUNCA vamos a prevenir, podemos poner passive: true para mejor rendimiento.
+    // Por ahora, dejémoslo en false por si necesitamos prevenir gestos.
+    window.addEventListener('touchstart', handleTouchStart, { passive: false });
+    window.addEventListener('touchmove', handleTouchMove, { passive: false });
+    window.addEventListener('touchend', handleTouchEnd, { passive: false });
+    window.addEventListener('touchcancel', handleTouchEnd, { passive: false });
+
+    // Prevenir comportamiento por defecto en body puede ser necesario
+    // document.body.addEventListener('touchmove', preventDefault, { passive: false });
+
+    return () => {
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('touchend', handleTouchEnd);
+      window.removeEventListener('touchcancel', handleTouchEnd);
+      // document.body.removeEventListener('touchmove', preventDefault);
+    };
   }, []);
-  
-  return null;
+
+  return null; // Este componente no renderiza nada
 }

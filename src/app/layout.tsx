@@ -8,13 +8,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { PageTransition } from "@/components/ui/page-transition";
 import ClientSplashCursor from "@/components/ui/ClientSplashCursor";
 import MobileOptimizer from "@/components/MobileOptimizer";
-import dynamic from "next/dynamic";
-
-// Importar la solución de scroll para móviles de forma dinámica (solo cliente)
-const MobileScrollFix = dynamic(
-  () => import("@/components/ui/MobileScrollFix"),
-  { ssr: false }
-);
+import DynamicMobileScrollFix from '@/components/DynamicMobileScrollFix'; // Import the new client component
 
 export const metadata: Metadata = {
   title: "Armando Ovalle Jácome - Experto en Desarrollo Web WordPress y SEO",
@@ -68,9 +62,6 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="bg-background text-foreground overscroll-y-auto touch-auto">
-        {/* Solución radical para el scroll móvil - se carga solo en el cliente */}
-        <MobileScrollFix />
-        
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
@@ -84,7 +75,10 @@ export default function RootLayout({
           <ClientSplashCursor />
           
           <Header />
-          <PageTransition>{children}</PageTransition>
+          <main className="flex-grow">
+            <PageTransition>{children}</PageTransition>
+          </main>
+          <DynamicMobileScrollFix /> {/* Use the new client component */}
           <Footer />
         </ThemeProvider>
       </body>

@@ -24,7 +24,7 @@ export function ProductCard({ product, translate }: ProductCardProps) {
         y: -20,
       }}
       key={product.title}
-      className="group/product h-96 w-[30rem] relative flex-shrink-0"
+      className="group/product relative h-96 w-[30rem] flex-shrink-0"
     >
       <Link
         href={product.link}
@@ -34,15 +34,17 @@ export function ProductCard({ product, translate }: ProductCardProps) {
           src={product.thumbnail}
           height="600"
           width="600"
-          className="object-cover object-left-top absolute h-full w-full inset-0"
+          className="absolute inset-0 h-full w-full object-cover object-left-top"
           alt={product.title}
         />
       </Link>
-      <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-80 bg-black pointer-events-none"></div>
-      <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover/product:opacity-100 text-white p-4 bg-black/80 rounded-lg">
-        <h2 className="text-lg font-bold mb-2">{product.title}</h2>
+      <div className="pointer-events-none absolute inset-0 h-full w-full bg-black opacity-0 group-hover/product:opacity-80"></div>
+      <div className="absolute bottom-4 left-4 right-4 rounded-lg bg-black/80 p-4 text-white opacity-0 group-hover/product:opacity-100">
+        <h2 className="mb-2 text-lg font-bold">{product.title}</h2>
         {product.description && (
-          <p className="text-sm text-gray-200 line-clamp-2">{product.description}</p>
+          <p className="line-clamp-2 text-sm text-gray-200">
+            {product.description}
+          </p>
         )}
       </div>
     </motion.div>

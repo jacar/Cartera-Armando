@@ -23,9 +23,9 @@ interface ProjectsGridProps {
 export function ProjectsGrid({ projects }: ProjectsGridProps) {
   const [ref, inView] = useInView({
     triggerOnce: true,
-    threshold: 0.1
+    threshold: 0.1,
   });
-  
+
   const containerRef = useRef<HTMLDivElement>(null);
   const { x: mouseX, y: mouseY } = useMousePosition();
 
@@ -38,10 +38,10 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
       initial={{ opacity: 0, y: 20 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6 }}
-      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16 relative"
+      className="relative mb-16 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
       style={{
         perspective: "1000px",
-        transformStyle: "preserve-3d"
+        transformStyle: "preserve-3d",
       }}
     >
       {projects.map((project, index) => {
@@ -58,14 +58,10 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
             key={project.title}
             style={{
               transform: `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
-              transition: "transform 0.1s ease-out"
+              transition: "transform 0.1s ease-out",
             }}
           >
-            <ProjectCard
-              project={project}
-              index={index}
-              inView={inView}
-            />
+            <ProjectCard project={project} index={index} inView={inView} />
           </motion.div>
         );
       })}

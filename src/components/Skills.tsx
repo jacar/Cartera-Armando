@@ -1,19 +1,19 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { 
-  Palette, 
-  Code, 
-  Cpu, 
-  FileCode2, 
-  Layout, 
-  Server, 
-  Video
+import {
+  Palette,
+  Code,
+  Cpu,
+  FileCode2,
+  Layout,
+  Server,
+  Video,
 } from "lucide-react";
-import { 
-  GlobeSimple, 
+import {
+  GlobeSimple,
   FigmaLogo,
-  ChatCenteredText
+  ChatCenteredText,
 } from "@phosphor-icons/react";
 
 const skills = [
@@ -31,7 +31,7 @@ const skills = [
       { name: "Netlify", icon: <GlobeSimple size={24} weight="fill" /> },
       { name: "Git", icon: <Code size={24} /> },
       { name: "VS Code", icon: <FileCode2 size={24} /> },
-    ]
+    ],
   },
   {
     category: "Diseño",
@@ -40,7 +40,7 @@ const skills = [
       { name: "Illustrator", icon: <Layout size={24} /> },
       { name: "Photoshop", icon: <Layout size={24} /> },
       { name: "Figma", icon: <FigmaLogo size={24} weight="fill" /> },
-    ]
+    ],
   },
   {
     category: "Contenidos",
@@ -48,7 +48,7 @@ const skills = [
     tools: [
       { name: "Premier Pro", icon: <Video size={24} /> },
       { name: "ChatGPT", icon: <ChatCenteredText size={24} weight="fill" /> },
-    ]
+    ],
   },
   {
     category: "Hosting & Servidores",
@@ -56,30 +56,31 @@ const skills = [
     tools: [
       { name: "cPanel", icon: <Cpu size={24} /> },
       { name: "Plesk", icon: <Server size={24} /> },
-    ]
-  }
+    ],
+  },
 ];
 
 export default function Skills() {
   return (
-    <section className="min-h-screen pt-32 relative">
-      <div className="max-w-[1400px] mx-auto px-6">
+    <section className="relative min-h-screen pt-32">
+      <div className="mx-auto max-w-[1400px] px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="mb-16 text-center"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 dark:text-white text-zinc-900">
+          <h2 className="mb-6 text-3xl font-bold text-zinc-900 dark:text-white md:text-4xl lg:text-5xl">
             Tecnologías y Herramientas
           </h2>
-          <p className="dark:text-gray-300 text-zinc-600 max-w-2xl mx-auto">
-            Dominio de las últimas tecnologías y herramientas para crear experiencias digitales excepcionales.
+          <p className="mx-auto max-w-2xl text-zinc-600 dark:text-gray-300">
+            Dominio de las últimas tecnologías y herramientas para crear
+            experiencias digitales excepcionales.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           {skills.map((category, index) => (
             <motion.div
               key={category.category}
@@ -87,9 +88,9 @@ export default function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="bg-zinc-100 dark:bg-[#18181b] p-8 rounded-xl hover:bg-zinc-200 dark:hover:bg-[#27272A] transition-colors"
+              className="rounded-xl bg-zinc-100 p-8 transition-colors hover:bg-zinc-200 dark:bg-[#18181b] dark:hover:bg-[#27272A]"
             >
-              <div className="flex items-center gap-4 mb-6">
+              <div className="mb-6 flex items-center gap-4">
                 <div className="text-zinc-900 dark:text-[#c5fb00]">
                   {category.icon}
                 </div>
@@ -97,16 +98,20 @@ export default function Skills() {
                   {category.category}
                 </h3>
               </div>
-              
+
               <div className="grid grid-cols-2 gap-4">
                 {category.tools.map((tool) => (
                   <motion.div
                     key={tool.name}
                     whileHover={{ scale: 1.05 }}
-                    className="flex items-center gap-3 bg-zinc-200 dark:bg-[#27272A] p-4 rounded-lg hover:bg-zinc-300 dark:hover:bg-[#323232] transition-colors"
+                    className="flex items-center gap-3 rounded-lg bg-zinc-200 p-4 transition-colors hover:bg-zinc-300 dark:bg-[#27272A] dark:hover:bg-[#323232]"
                   >
-                    <div className="text-zinc-900 dark:text-[#c5fb00]">{tool.icon}</div>
-                    <span className="text-zinc-900 dark:text-white">{tool.name}</span>
+                    <div className="text-zinc-900 dark:text-[#c5fb00]">
+                      {tool.icon}
+                    </div>
+                    <span className="text-zinc-900 dark:text-white">
+                      {tool.name}
+                    </span>
                   </motion.div>
                 ))}
               </div>

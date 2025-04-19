@@ -12,10 +12,10 @@ interface TestimonialImageProps {
   animationDuration?: number;
 }
 
-export function TestimonialImage({ 
-  testimonials, 
+export function TestimonialImage({
+  testimonials,
   active,
-  animationDuration = 0.4 
+  animationDuration = 0.4,
 }: TestimonialImageProps) {
   const randomRotateY = () => Math.floor(Math.random() * 21) - 10;
 
@@ -51,15 +51,15 @@ export function TestimonialImage({
             }}
             className="absolute inset-0 origin-bottom"
           >
-            <div className="relative group">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#c5fb00] to-[#18181b] rounded-3xl blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+            <div className="group relative">
+              <div className="animate-tilt absolute -inset-0.5 rounded-3xl bg-gradient-to-r from-[#c5fb00] to-[#18181b] opacity-75 blur transition duration-1000 group-hover:opacity-100 group-hover:duration-200"></div>
               <Image
                 src={testimonial.src}
                 alt={testimonial.name}
                 width={800}
                 height={800}
                 draggable={false}
-                className="relative h-full w-full rounded-2xl object-contain bg-pink-50 dark:bg-[#18181b] p-8 transition-all duration-300 group-hover:scale-[1.02] will-change-transform"
+                className="relative h-full w-full rounded-2xl bg-pink-50 object-contain p-8 transition-all duration-300 will-change-transform group-hover:scale-[1.02] dark:bg-[#18181b]"
               />
             </div>
           </motion.div>

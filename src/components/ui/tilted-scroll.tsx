@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 interface TiltedScrollItem {
   id: string;
@@ -11,20 +11,20 @@ interface TiltedScrollProps {
   className?: string;
 }
 
-export function TiltedScroll({ 
+export function TiltedScroll({
   items = defaultItems,
-  className 
+  className,
 }: TiltedScrollProps) {
   return (
     <div className={cn("flex items-center justify-center", className)}>
       <div className="relative overflow-hidden [mask-composite:intersect] [mask-image:linear-gradient(to_right,transparent,black_5rem),linear-gradient(to_left,transparent,black_5rem),linear-gradient(to_bottom,transparent,black_5rem),linear-gradient(to_top,transparent,black_5rem)]">
-        <div className="grid h-[250px] w-[300px] gap-5 animate-skew-scroll grid-cols-1">
+        <div className="animate-skew-scroll grid h-[250px] w-[300px] grid-cols-1 gap-5">
           {items.map((item) => (
             <div
               key={item.id}
-              className="group flex items-center gap-2 cursor-pointer rounded-md border border-border/40 bg-gradient-to-b from-background/80 to-muted/80 p-4 shadow-md transition-all duration-300 ease-in-out hover:scale-105 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-xl dark:border-border"
+              className="border-border/40 from-background/80 to-muted/80 group flex cursor-pointer items-center gap-2 rounded-md border bg-gradient-to-b p-4 shadow-md transition-all duration-300 ease-in-out hover:-translate-x-1 hover:-translate-y-1 hover:scale-105 hover:shadow-xl dark:border-border"
             >
-              <CheckCircleIcon className="h-6 w-6 mr-2 stroke-foreground/40 transition-colors group-hover:stroke-foreground" />
+              <CheckCircleIcon className="stroke-foreground/40 mr-2 h-6 w-6 transition-colors group-hover:stroke-foreground" />
               <p className="text-foreground/80 transition-colors group-hover:text-foreground">
                 {item.text}
               </p>
@@ -33,7 +33,7 @@ export function TiltedScroll({
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 function CheckCircleIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -52,7 +52,7 @@ function CheckCircleIcon(props: React.SVGProps<SVGSVGElement>) {
       <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
       <path d="m9 12 2 2 4-4" />
     </svg>
-  )
+  );
 }
 
 const defaultItems: TiltedScrollItem[] = [
@@ -64,4 +64,4 @@ const defaultItems: TiltedScrollItem[] = [
   { id: "6", text: "Item 6" },
   { id: "7", text: "Item 7" },
   { id: "8", text: "Item 8" },
-]
+];

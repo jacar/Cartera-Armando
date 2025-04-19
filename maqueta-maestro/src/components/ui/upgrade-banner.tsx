@@ -37,7 +37,7 @@ export function UpgradeBanner({
   description = "for 2x more CPUs and faster builds",
   onClose,
   onClick,
-  className
+  className,
 }: UpgradeBannerProps) {
   const [isHovered, setIsHovered] = React.useState(false);
 
@@ -102,7 +102,7 @@ export function UpgradeBanner({
               {description}
             </span>
             {onClose && (
-              <button 
+              <button
                 onClick={onClose}
                 className="m-0 flex h-6 !w-6 shrink-0 cursor-pointer items-center justify-center rounded-[4px] border-0 bg-transparent p-0 text-[#005FF2] hover:bg-[#CAE7FF] dark:hover:bg-[#012F61]"
               >

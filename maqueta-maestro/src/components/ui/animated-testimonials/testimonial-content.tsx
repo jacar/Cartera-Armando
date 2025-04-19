@@ -8,9 +8,9 @@ interface TestimonialContentProps {
   animationDuration?: number;
 }
 
-export function TestimonialContent({ 
+export function TestimonialContent({
   testimonial,
-  animationDuration = 0.2 
+  animationDuration = 0.2,
 }: TestimonialContentProps) {
   return (
     <motion.div
@@ -33,7 +33,7 @@ export function TestimonialContent({
       }}
       className="space-y-6"
     >
-      <motion.p className="text-xl leading-relaxed text-zinc-800 dark:text-gray-200 mb-8">
+      <motion.p className="mb-8 text-xl leading-relaxed text-zinc-800 dark:text-gray-200">
         {testimonial.quote.split(" ").map((word, index) => (
           <motion.span
             key={index}
@@ -58,11 +58,11 @@ export function TestimonialContent({
           </motion.span>
         ))}
       </motion.p>
-      <div className="flex items-center gap-4 mt-8">
-        <img 
-          src={testimonial.avatar || testimonial.src} 
+      <div className="mt-8 flex items-center gap-4">
+        <img
+          src={testimonial.avatar || testimonial.src}
           alt={testimonial.name}
-          className="w-16 h-16 rounded-full object-cover border-2 border-zinc-200 dark:border-[#27272A]"
+          className="h-16 w-16 rounded-full border-2 border-zinc-200 object-cover dark:border-[#27272A]"
         />
         <div>
           <h3 className="text-xl font-bold text-zinc-900 dark:text-[#c5fb00]">
@@ -73,11 +73,11 @@ export function TestimonialContent({
           </p>
         </div>
       </div>
-      <div className="flex gap-1 mt-4">
+      <div className="mt-4 flex gap-1">
         {[...Array(5)].map((_, i) => (
           <svg
             key={i}
-            className="w-5 h-5 text-[#c5fb00]"
+            className="h-5 w-5 text-[#c5fb00]"
             fill="currentColor"
             viewBox="0 0 20 20"
           >

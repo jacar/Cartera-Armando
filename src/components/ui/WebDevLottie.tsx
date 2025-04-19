@@ -1,9 +1,15 @@
 "use client";
 import { Player } from "@lottiefiles/react-lottie-player";
 
-export default function WebDevLottie({ className = "" }: { className?: string }) {
+export default function WebDevLottie({
+  className = "",
+}: {
+  className?: string;
+}) {
   return (
-    <div className={`w-full h-full flex items-center justify-center ${className}`}>
+    <div
+      className={`flex h-full w-full items-center justify-center ${className}`}
+    >
       <Player
         autoplay
         loop
