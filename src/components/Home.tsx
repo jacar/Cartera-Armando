@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { RetroGrid } from "@/components/ui/retro-grid";
 import { Squares } from "@/components/ui/squares-background";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import Image from "next/image";
 import { ArrowRight, ChevronDown, MessageSquare } from "lucide-react";
 import {
@@ -22,80 +22,133 @@ import {
   TooltipTrigger,
 } from "@radix-ui/react-tooltip";
 import MobileHeroSlider from "@/components/ui/MobileHeroSlider";
+import { isMobile } from "@/lib/utils";
 
-// Lazy load SplineScene for performance
+// Lazy load SplineScene con mayor prioridad de carga y mejor UX
 const LazySplineScene = dynamic(
   () => import("@/components/ui/splite").then((mod) => mod.SplineScene),
   {
     ssr: false,
     loading: () => (
-      <div className="flex h-full w-full items-center justify-center">
-        <span className="loader" />
+      <div className="flex h-full w-full items-center justify-center bg-zinc-100/20 backdrop-blur-sm rounded-lg dark:bg-zinc-900/30 animate-pulse">
+        <div className="flex flex-col items-center justify-center gap-4">
+          <div className="h-24 w-24 rounded-full bg-zinc-200 dark:bg-zinc-800 animate-pulse"></div>
+          <div className="h-4 w-32 rounded bg-zinc-200 dark:bg-zinc-800 animate-pulse"></div>
+        </div>
       </div>
     ),
   },
 );
 
-export default function Home() {
-  const { theme, setTheme } = useTheme();
-  const [isMobile, setIsMobile] = useState(false);
+// Pre-cargar componentes que se mostrarán inmediatamente
+const prefetchComponents = () => {
+  if (typeof window !== 'undefined') {
+    // Prefetch en tiempo inactivo para no bloquear renderizado inicial
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(() => {
+        import("@/components/ui/splite");
+        import("@/components/ui/MobileHeroSlider");
+      }, { timeout: 2000 });
+    } else {
+      setTimeout(() => {
+        import("@/components/ui/splite");
+        import("@/components/ui/MobileHeroSlider");
+      }, 1000);
+    }
+  }
+};
 
-  const mobileImage =
-    "https://www.webcincodev.com/blog/wp-content/uploads/2025/03/image_fx_-2025-03-11T111412.287.png";
+function HomeComponent() {
+  const { theme } = useTheme();
+  const [isMobileDevice, setIsMobileDevice] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
+  // Memoizar URLs de recursos para evitar rerenderings
+  const resources = useMemo(() => ({
+    mobileImage: "https://www.webcincodev.com/blog/wp-content/uploads/2025/03/image_fx_-2025-03-11T111412.287.png",
+    darkBackground: "https://www.webcincodev.com/blog/wp-content/uploads/2025/03/Scene-12.png",
+    lightBackground: "https://www.webcincodev.com/blog/wp-content/uploads/2025/03/image_fx_-2025-03-20T212621.296-1.png"
+  }), []);
+
+  // Optimización con debounced resize y detección móvil mejorada
   useEffect(() => {
     if (typeof window !== "undefined") {
+      // Usar función isMobile optimizada
       const checkMobile = () => {
-        setIsMobile(window.innerWidth <= 768);
+        setIsMobileDevice(isMobile());
       };
       checkMobile();
-      window.addEventListener("resize", checkMobile);
-      return () => window.removeEventListener("resize", checkMobile);
+      
+      // Pre-cargar componentes de forma óptima
+      prefetchComponents();
+      
+      // Inicializar estado de carga
+      setIsLoaded(true);
+      
+      // Usar debounce para mejor rendimiento
+      let timeoutId: NodeJS.Timeout;
+      const debouncedResize = () => {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(checkMobile, 100);
+      };
+      
+      window.addEventListener("resize", debouncedResize, { passive: true });
+      return () => {
+        clearTimeout(timeoutId);
+        window.removeEventListener("resize", debouncedResize);
+      };
     }
   }, []);
 
-  const scrollToWork = () => {
+  // Optimizar scrollToWork con useCallback para memorizar función
+  const scrollToWork = useCallback(() => {
     if (typeof window !== "undefined") {
       const workSection = document.getElementById("work");
-      workSection?.scrollIntoView({
-        behavior: "smooth",
-      });
+      if (workSection) {
+        // Usar scrollIntoView con opciones optimizadas
+        workSection.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }
     }
-  };
+  }, []);
 
+  // Usar renderizado estándar para evitar problemas
   return (
     <section className="relative flex min-h-screen items-center justify-center px-4 pb-[120px] sm:px-6">
-      <div
-        className="absolute inset-0 z-0 w-screen"
-        style={{
-          marginLeft: "calc(-50vw + 50%)",
-          marginRight: "calc(-50vw + 50%)",
-        }}
-      >
-        <div 
-          className="absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-300"
+      {/* Fondo optimizado */}
+        <div
+          className="absolute inset-0 z-0 w-screen"
           style={{
-            backgroundImage: theme === "dark" 
-              ? "url('https://www.webcincodev.com/blog/wp-content/uploads/2025/03/Scene-12.png')"
-              : "url('https://www.webcincodev.com/blog/wp-content/uploads/2025/03/image_fx_-2025-03-20T212621.296-1.png')",
-            opacity: 0.4
+            marginLeft: "calc(-50vw + 50%)",
+            marginRight: "calc(-50vw + 50%)",
           }}
-        />
-        <motion.div
-          className="absolute inset-0"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
         >
-          <div
-            className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50 transition-all duration-300"
+          <div 
+            className="absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-300"
             style={{
-              opacity: theme === "dark" ? 1 : 0,
+              backgroundImage: theme === "dark" 
+                ? `url('${resources.darkBackground}')`
+                : `url('${resources.lightBackground}')`,
+              opacity: 0.4
             }}
+            loading="lazy"
           />
-        </motion.div>
-        {/* Capa blanca eliminada: se quita el gradiente claro */}
-      </div>
+          <motion.div
+            className="absolute inset-0"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div
+              className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50 transition-all duration-300"
+              style={{
+                opacity: theme === "dark" ? 1 : 0,
+              }}
+            />
+          </motion.div>
+        </div>
 
       <div className="z-10 mx-auto w-full max-w-[1400px]">
         <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12">
@@ -110,7 +163,7 @@ export default function Home() {
               x: 0,
             }}
             transition={{
-              duration: 0.8,
+              duration: 0.8
             }}
             className="order-1 text-center lg:text-left"
           >
@@ -122,9 +175,9 @@ export default function Home() {
                 por qué ser aburrida
               </span>
             </div>
-            {/* Slider hero solo para móvil */}
-            {isMobile ? (
-              <MobileHeroSlider />
+            {/* Slider hero solo para móvil - Carga condicional */}
+            {isMobileDevice ? (
+              isLoaded && <MobileHeroSlider />
             ) : (
               <h1 className="mb-4 text-3xl font-bold text-white sm:mb-6 sm:text-4xl md:text-5xl lg:text-7xl">
                 Diseño y<br />
@@ -133,15 +186,13 @@ export default function Home() {
                 <span>Web</span>
               </h1>
             )}
-            {/* Título llamativo solo para móvil */}
-            {isMobile ? (
+            {/* Título llamativo solo para móvil - Con renderizado condicional */}
+            {isMobileDevice && isLoaded && (
               <h1 className="mb-4 animate-pulse px-2 text-center text-[2.2rem] font-extrabold leading-tight text-white drop-shadow-lg">
                 ¡Transforma tu idea
                 <br />
                 en una web impactante!
               </h1>
-            ) : (
-              <></>
             )}
             <div className="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row sm:items-start sm:gap-8 lg:mt-12 lg:justify-start">
               <div className="flex w-full flex-col gap-4 sm:w-auto">
@@ -205,7 +256,7 @@ export default function Home() {
               </button>
             </div>
           </motion.div>
-          {/* Imagen animada robot a la derecha en escritorio, debajo en móvil */}
+          {/* Imagen animada robot */}
           <motion.div
             initial={{
               opacity: 0,
@@ -216,18 +267,23 @@ export default function Home() {
               scale: 1,
             }}
             transition={{
-              duration: 0.8,
+              duration: 0.8
             }}
             className="relative order-2 mt-0 h-[500px] sm:mt-0 sm:h-[700px] lg:mt-0 flex items-center justify-center z-10 overflow-visible"
           >
             <div className="flex h-full w-full items-center justify-center overflow-visible rounded-2xl">
-              {isMobile ? (
+              {isMobileDevice ? (
                 <div className="relative aspect-video h-full w-full overflow-hidden rounded-2xl">
-                  <img
-                    src="https://www.webcincodev.com/blog/wp-content/uploads/2025/03/Scene-12.png"
+                  {/* Usar Image de Next.js para optimización automática */}
+                  <Image
+                    src={resources.darkBackground}
                     alt="Web Development Illustration"
                     className="absolute inset-0 h-full w-full object-cover"
                     loading="lazy"
+                    width={800}
+                    height={600}
+                    sizes="(max-width: 768px) 100vw, 800px"
+                    priority={false}
                   />
                   <div className="absolute bottom-0 left-0 w-full bg-black/60 py-2">
                     <h3 className="px-2 text-center text-base font-semibold text-white sm:text-lg">
@@ -236,7 +292,7 @@ export default function Home() {
                   </div>
                 </div>
               ) : (
-                <LazySplineScene className="h-full w-full" />
+                isLoaded && <LazySplineScene className="h-full w-full" />
               )}
             </div>
           </motion.div>
@@ -245,3 +301,6 @@ export default function Home() {
     </section>
   );
 }
+
+// Exportar el componente directamente para evitar problemas
+export default HomeComponent;

@@ -45,12 +45,7 @@ const config = {
     return config;
   },
   output: "export",
-  // Permitir certificados SSL autofirmados en desarrollo
-  serverOptions: {
-    https: {
-      rejectUnauthorized: false,
-    },
-  },
+  // Configuración optimizada para exportación estática
 };
 
 // Solo para desarrollo: configurar variables de entorno para aceptar certificados SSL autofirmados

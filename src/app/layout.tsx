@@ -8,7 +8,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { PageTransition } from "@/components/ui/page-transition";
 import ClientSplashCursor from "@/components/ui/ClientSplashCursor";
 import MobileOptimizer from "@/components/MobileOptimizer";
-import DynamicMobileScrollFix from '@/components/DynamicMobileScrollFix'; // Import the new client component
+import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: "Armando Ovalle Jácome - Experto en Desarrollo Web WordPress y SEO",
@@ -57,10 +57,20 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
-      lang="en"
+      lang="es"
       className={`${GeistSans.variable}`}
       suppressHydrationWarning
     >
+      <head>
+        {/* Preconectar con dominios externos para acelerar carga */}
+        <link rel="preconnect" href="https://www.webcincodev.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        
+        {/* Precargar imágenes críticas */}
+        <link rel="preload" href="https://www.webcincodev.com/blog/wp-content/uploads/2025/04/lofoweb2-1s.png" as="image" />
+        <link rel="preload" href="https://www.webcincodev.com/blog/wp-content/uploads/2025/04/lofoweb2-1e.png" as="image" />
+      </head>
       <body className="bg-background text-foreground overscroll-y-auto touch-auto">
         <ThemeProvider
           attribute="class"
@@ -68,18 +78,52 @@ export default function RootLayout({
           enableSystem={false}
           storageKey="theme"
         >
-          {/* Optimizador para móviles - mejora el rendimiento y el scroll táctil */}
+          {/* Optimizador unificado para rendimiento móvil */}
           <MobileOptimizer />
           
-          {/* SplashCursor se controla internamente para mostrarse solo en desktop */}
+          {/* SplashCursor solo para escritorio */}
           <ClientSplashCursor />
           
           <Header />
           <main className="flex-grow">
             <PageTransition>{children}</PageTransition>
           </main>
-          <DynamicMobileScrollFix /> {/* Use the new client component */}
           <Footer />
+          
+          {/* Script de optimización de rendimiento con prioridad afterInteractive */}
+          {/* Script de optimización simplificado para evitar errores */}
+          <Script
+            id="performance-optimizations"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
+                (function() {
+                  // Optimizar comportamiento del scroll
+                  document.documentElement.style.cssText += 'overflow-y: auto !important; overscroll-behavior-y: contain;';
+                  document.body.style.cssText += 'overflow-y: auto !important; overscroll-behavior-y: contain;';
+                  
+                  // Función para cargar optimizaciones básicas
+                  function applyBasicOptimizations() {
+                    if (typeof window !== 'undefined') {
+                      // Habilitar scroll y comportamiento táctil apropiado
+                      document.documentElement.style.touchAction = 'auto';
+                      document.body.style.touchAction = 'auto';
+                      
+                      // Asegurar que el scroll funcione en móviles
+                      document.documentElement.style.overscrollBehavior = 'auto';
+                      document.body.style.overscrollBehavior = 'auto';
+                      
+                      // Eliminar clases que puedan bloquear el scroll
+                      document.body.classList.remove('overflow-hidden', 'fixed', 'no-scroll');
+                    }
+                  }
+                  
+                  // Aplicar optimizaciones básicas inmediatamente
+                  applyBasicOptimizations();
+                })();
+              `
+            }}
+          />
         </ThemeProvider>
       </body>
     </html>
