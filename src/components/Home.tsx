@@ -11,6 +11,7 @@ import {
   Article,
   Coffee,
   BehanceLogo,
+  LinkedinLogo,
 } from "@phosphor-icons/react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
@@ -244,6 +245,13 @@ function HomeComponent() {
                       className="text-black transition-colors hover:text-zinc-600 dark:text-[#c5fb00] dark:hover:text-white"
                     >
                       <BehanceLogo size={24} weight="fill" />
+                    </Link>
+                    <Link
+                      href="https://www.linkedin.com/in/webcincodev/"
+                      target="_blank"
+                      className="text-black transition-colors hover:text-blue-600 dark:text-[#c5fb00] dark:hover:text-blue-500"
+                    >
+                      <LinkedinLogo size={24} weight="fill" />
                     </Link>
                   </div>
                 </div>

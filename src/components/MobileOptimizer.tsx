@@ -164,72 +164,191 @@ export default function MobileOptimizer(): null {
 
     // Optimizar comportamiento de scroll táctil
     function optimizeTouchScroll() {
-      // Configurar propiedades CSS para scroll táctil fluido
-      document.documentElement.style.cssText += `
-        overflow-x: hidden !important;
-        overflow-y: auto !important;
-        overscroll-behavior-y: contain !important;
-        -webkit-overflow-scrolling: touch !important;
-        touch-action: pan-y !important;
-        height: 100% !important;
-        position: static !important;
-      `;
+      try {
+        // Permitir que el desplazamiento funcione correctamente sin restricciones
+        document.documentElement.style.cssText += `
+          overflow-x: hidden;
+          overflow-y: scroll;
+          -webkit-overflow-scrolling: touch;
+          overscroll-behavior: auto;
+          touch-action: manipulation;
+          position: relative;
+          min-height: 100%;
+        `;
 
-      document.body.style.cssText += `
-        overflow-x: hidden !important;
-        overflow-y: auto !important;
-        overscroll-behavior-y: contain !important;
-        -webkit-overflow-scrolling: touch !important;
-        touch-action: pan-y !important;
-        height: auto !important;
-        position: static !important;
-      `;
+        document.body.style.cssText += `
+          overflow-x: hidden;
+          overflow-y: visible;
+          -webkit-overflow-scrolling: touch;
+          touch-action: manipulation;
+          position: relative;
+          min-height: 100%;
+          box-sizing: border-box;
+        `;
 
-      // Quitar cualquier clase que pueda bloquear el scroll
-      const scrollBlockingClasses = [
-        'overflow-hidden', 'fixed', 'no-scroll', 'scroll-locked',
-        'scroll-disabled', 'scroll-blocked', 'no-overflow'
-      ];
+        // Eliminar cualquier clase que pueda estar bloqueando el scroll
+        const scrollBlockingClasses = [
+          'overflow-hidden', 'fixed', 'no-scroll', 'scroll-locked',
+          'scroll-disabled', 'scroll-block', 'no-overflow'
+        ];
 
-      scrollBlockingClasses.forEach(className => {
-        document.body.classList.remove(className);
-        document.documentElement.classList.remove(className);
-      });
+        scrollBlockingClasses.forEach(className => {
+          document.body.classList.remove(className);
+          document.documentElement.classList.remove(className);
+        });
 
-      // Aplicar configuraciones a todos los contenedores principales
-      const mainContainers = [
-        document.querySelector('main'),
-        document.querySelector('#__next'),
-        document.querySelector('#root'),
-        document.querySelector('[data-main-content]'),
-        document.querySelector('.main-content'),
-        ...Array.from(document.querySelectorAll('.scroll-container'))
-      ];
+        // Configurar todos los contenedores principales para permitir scroll
+        const mainContainers = [
+          document.querySelector('main'),
+          document.querySelector('#__next'),
+          document.querySelector('#root'),
+          document.querySelector('[data-main-content]'),
+          document.querySelector('.main-content'),
+          ...Array.from(document.querySelectorAll('.scroll-container'))
+        ];
 
-      mainContainers.forEach(container => {
-        if (container instanceof HTMLElement) {
-          container.style.cssText += `
-            overflow: visible !important;
-            height: auto !important;
-            position: relative !important;
-            overscroll-behavior: auto !important;
-            -webkit-overflow-scrolling: touch !important;
-          `;
-        }
-      });
-
-      // Corregir comportamiento de preventDefault en eventos táctiles
-      if (Event.prototype.preventDefault) {
-        originalPreventDefault.current = Event.prototype.preventDefault;
-        Event.prototype.preventDefault = function(this: Event) {
-          if (this.type !== 'touchmove' && this.type !== 'touchstart' && this.type !== 'wheel') {
-            originalPreventDefault.current?.call(this);
+        mainContainers.forEach(container => {
+          if (container instanceof HTMLElement) {
+            container.style.cssText += `
+              overflow-y: visible;
+              -webkit-overflow-scrolling: touch;
+              touch-action: pan-y;
+              min-height: 100%;
+              position: relative;
+            `;
           }
+        });
+
+        // Restaurar y mejorar el comportamiento nativo de desplazamiento
+        const fixTouchScrolling = () => {
+          // Evitar que se bloqueen los eventos táctiles predeterminados
+          document.addEventListener('touchstart', () => {}, { passive: true });
+          document.addEventListener('touchmove', () => {}, { passive: true });
+          document.addEventListener('wheel', () => {}, { passive: true });
+        
+          // Corregir iOS momentum scrolling issues
+          const scrollableElements = document.querySelectorAll('div');
+          scrollableElements.forEach(el => {
+            if (el instanceof HTMLElement) {
+              const computedStyle = window.getComputedStyle(el);
+              if (computedStyle.overflow === 'auto' || computedStyle.overflow === 'scroll' ||
+                  computedStyle.overflowY === 'auto' || computedStyle.overflowY === 'scroll') {
+                el.style.webkitOverflowScrolling = 'touch';
+              }
+            }
+          });
         };
+
+        fixTouchScrolling();
+
+        // Crear un MutationObserver para asegurar que los elementos nuevos también tengan el comportamiento correcto
+        const observer = new MutationObserver((mutations) => {
+          mutations.forEach(mutation => {
+            if (mutation.addedNodes.length > 0) {
+              fixTouchScrolling();
+            }
+          });
+        });
+
+        observer.observe(document.body, { childList: true, subtree: true });
+
+        // Restaurar el comportamiento nativo de preventDefault
+        if (Event.prototype.preventDefault && originalPreventDefault.current) {
+          Event.prototype.preventDefault = originalPreventDefault.current;
+        }
+
+        // Agregar script para mejorar el desplazamiento en iOS
+        const iosScrollFix = document.createElement('script');
+        iosScrollFix.innerHTML = `
+          document.addEventListener('gesturestart', function(e) {
+            e.preventDefault();
+          });
+          document.addEventListener('touchmove', function(e) {
+            // Permitir el scroll nativo
+            if (e.touches.length <= 1) return;
+            e.preventDefault();
+          }, { passive: false });
+        `;
+        document.head.appendChild(iosScrollFix);
+
+        // Eliminar cualquier estilo que pueda bloquear el scroll
+        const unlockScrollStyles = document.createElement('style');
+        unlockScrollStyles.textContent = `
+          body.overflow-hidden, body.no-scroll { 
+            overflow: auto !important; 
+            height: auto !important; 
+            position: relative !important; 
+          }
+          .fixed-overlay {
+            pointer-events: none !important;
+          }
+          .fixed-overlay * {
+            pointer-events: auto !important;
+          }
+        `;
+        document.head.appendChild(unlockScrollStyles);
+      } catch (e) {
+        console.error('Error en optimizeTouchScroll:', e);
+        // Aplicar configuración mínima de emergencia si algo falla
+        document.documentElement.style.overflow = 'auto';
+        document.body.style.overflow = 'auto';
+        document.documentElement.style.position = 'relative';
+        document.body.style.position = 'relative';
       }
     }
 
     // Aplicar optimizaciones mínimas de emergencia si algo falla
+    // Configurar eventos táctiles como pasivos para mejorar el rendimiento
+    function setupPassiveEventListeners() {
+      try {
+        // Lista de eventos táctiles que se benefician de ser pasivos
+        const passiveEvents = [
+          'touchstart', 'touchmove', 'touchend', 'touchcancel',
+          'wheel', 'mousewheel', 'scroll'
+        ];
+
+        // Función para agregar listeners pasivos a elementos importantes
+        const addPassiveListenersTo = (element: HTMLElement | Document | Window) => {
+          passiveEvents.forEach(eventType => {
+            // Agregar un listener vacío que es pasivo
+            element.addEventListener(eventType, () => {}, { passive: true });
+          });
+        };
+
+        // Aplicar a elementos principales
+        addPassiveListenersTo(document);
+        addPassiveListenersTo(document.body);
+        addPassiveListenersTo(document.documentElement);
+        addPassiveListenersTo(window);
+        
+        // También aplicar a contenedores de scroll principales
+        const scrollContainers = [
+          document.querySelector('main'),
+          document.querySelector('#__next'),
+          document.querySelector('#root'),
+          ...Array.from(document.querySelectorAll('.scroll-container'))
+        ];
+
+        scrollContainers.forEach(container => {
+          if (container instanceof HTMLElement) {
+            addPassiveListenersTo(container);
+          }
+        });
+
+        // Configuración adicional para eventos críticos
+        // Evitar que los eventos táctiles sean bloqueados
+        document.addEventListener('touchmove', (e) => {
+          // Evitar la prevención predeterminada para el desplazamiento normal con un dedo
+          if (e.touches.length <= 1) {
+            // Permitir desplazamiento normal
+          }
+        }, { passive: true });
+
+      } catch (e) {
+        console.error('Error al configurar event listeners pasivos:', e);
+      }
+    }
+    
     function applyEmergencyOptimizations() {
       console.warn('⚠️ Aplicando optimizaciones de emergencia');
 
