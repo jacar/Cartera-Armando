@@ -8,6 +8,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { PageTransition } from "@/components/ui/page-transition";
 import ClientSplashCursor from "@/components/ui/ClientSplashCursor";
 import MobileOptimizer from "@/components/MobileOptimizer";
+import ScrollIndicator from "@/components/ui/scroll-indicator";
 import Script from 'next/script';
 
 export const metadata: Metadata = {
@@ -89,6 +90,9 @@ export default function RootLayout({
             <PageTransition>{children}</PageTransition>
           </main>
           <Footer />
+          
+          {/* Indicador de desplazamiento para dispositivos móviles */}
+          <ScrollIndicator />
           
           {/* Script de optimización de rendimiento con prioridad afterInteractive */}
           {/* Script de optimización simplificado para evitar errores */}

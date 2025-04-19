@@ -33,18 +33,7 @@ export default function MobileHeroSlider() {
       >
         {slides[index].title}
       </div>
-      <div className="mt-4 flex justify-center gap-4">
-        <button
-          aria-label="Anterior"
-          onClick={prevSlide}
-          className="h-3 w-3 rounded-full border border-white bg-white/40 hover:bg-white/80"
-        ></button>
-        <button
-          aria-label="Siguiente"
-          onClick={nextSlide}
-          className="h-3 w-3 rounded-full border border-white bg-white/40 hover:bg-white/80"
-        ></button>
-      </div>
+      {/* Botones de navegación eliminados a petición del usuario */}
       <div className="mt-2 flex justify-center gap-1">
         {slides.map((_, i) => (
           <span
