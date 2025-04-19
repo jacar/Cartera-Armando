@@ -73,17 +73,17 @@ export default function ProfessionalExperience() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
               viewport={{ once: true }}
-              className="group rounded-xl bg-zinc-100 p-8 text-center transition-colors hover:bg-zinc-200 dark:bg-[#18181b] dark:hover:bg-[#27272A]"
+              className="group rounded-xl bg-zinc-100 p-6 text-center transition-colors hover:bg-zinc-200 dark:bg-[#18181b] dark:hover:bg-[#27272A] w-full overflow-hidden whitespace-normal break-words"
             >
               <div className="mb-6 flex flex-col items-center text-center">
                 <div>
-                  <h3 className="mb-2 text-2xl font-bold text-zinc-900 dark:text-white">
+                  <h3 className="mb-2 text-xl sm:text-2xl md:text-3xl font-bold text-zinc-900 dark:text-white break-words">
                     {experience.company}
                   </h3>
-                  <p className="text-black dark:text-[#c5fb00]">
+                  <p className="text-sm sm:text-base md:text-lg text-black dark:text-[#c5fb00] break-words">
                     {experience.role}
                   </p>
-                  <p className="text-sm text-zinc-600 dark:text-gray-400">
+                  <p className="text-xs sm:text-sm md:text-base text-zinc-600 dark:text-gray-400 break-words">
                     {experience.period}
                   </p>
                 </div>
