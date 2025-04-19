@@ -47,7 +47,7 @@ const experiences = [
 
 export default function ProfessionalExperience() {
   return (
-    <section className="relative min-h-screen pt-32">
+    <section className="relative min-h-screen pt-32 px-4 sm:px-6 md:px-8">
       <div className="mx-auto max-w-[1400px] px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -56,16 +56,16 @@ export default function ProfessionalExperience() {
           viewport={{ once: true }}
           className="mb-16 text-center"
         >
-          <h2 className="mb-6 text-3xl font-bold text-zinc-900 dark:text-[#c5fb00] md:text-4xl lg:text-5xl">
+          <h2 className="mb-6 text-2xl sm:text-3xl md:text-4xl font-bold text-zinc-900 dark:text-[#c5fb00]">
             Experiencia Profesional
           </h2>
-          <p className="mx-auto max-w-2xl text-zinc-600">
+          <p className="mx-auto max-w-2xl text-zinc-600 text-sm sm:text-base md:text-lg">
             Trayectoria profesional en desarrollo web y gestión de proyectos
             digitales
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-2">
           {experiences.map((experience, index) => (
             <motion.div
               key={experience.company}
