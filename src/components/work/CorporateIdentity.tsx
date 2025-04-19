@@ -58,8 +58,8 @@ const testimonials = [
 ];
 export function CorporateIdentity() {
   return (
-    <section className="relative overflow-hidden py-40">
-      <div className="w-full max-w-[100vw] px-6">
+    <section className="relative overflow-hidden py-20 sm:py-32 lg:py-40">
+      <div className="w-full max-w-[100vw] px-2 sm:px-6">
         <motion.div
           initial={{
             opacity: 0,
@@ -72,12 +72,12 @@ export function CorporateIdentity() {
           transition={{
             duration: 0.6,
           }}
-          className="mb-20 text-center"
+          className="mb-10 sm:mb-16 lg:mb-20 text-center"
         >
-          <h2 className="mb-6 text-5xl font-bold text-zinc-900 dark:text-[#c5fb00]">
+          <h2 className="mb-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-zinc-900 dark:text-[#c5fb00] leading-tight sm:leading-tight lg:leading-tight">
             Identidad Corporativa
           </h2>
-          <p className="mx-auto max-w-2xl text-lg text-zinc-600 dark:text-white">
+          <p className="mx-auto max-w-md sm:max-w-2xl text-base sm:text-lg text-zinc-600 dark:text-white">
             Creamos identidades visuales que transmiten la esencia de tu marca y
             conectan con tu audiencia.
           </p>
@@ -86,7 +86,7 @@ export function CorporateIdentity() {
         <AnimatedTestimonials
           testimonials={testimonials}
           autoplay={true}
-          className="mb-20"
+          className="mb-10 sm:mb-20 px-0 sm:px-6"
         />
       </div>
     </section>
