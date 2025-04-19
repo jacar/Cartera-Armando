@@ -73,9 +73,9 @@ export default function ProfessionalExperience() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
               viewport={{ once: true }}
-              className="group rounded-xl bg-zinc-100 p-8 transition-colors hover:bg-zinc-200 dark:bg-[#18181b] dark:hover:bg-[#27272A]"
+              className="group rounded-xl bg-zinc-100 p-8 text-center transition-colors hover:bg-zinc-200 dark:bg-[#18181b] dark:hover:bg-[#27272A]"
             >
-              <div className="mb-6 flex items-start justify-between">
+              <div className="mb-6 flex flex-col items-center text-center">
                 <div>
                   <h3 className="mb-2 text-2xl font-bold text-zinc-900 dark:text-white">
                     {experience.company}
@@ -87,38 +87,39 @@ export default function ProfessionalExperience() {
                     {experience.period}
                   </p>
                 </div>
-                <motion.div
-                  className="flex gap-8"
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 0.3 }}
-                >
-                  <div className="text-center">
-                    <p className="text-2xl font-bold text-zinc-900 dark:text-[#c5fb00]">
-                      {experience.stats.projects}
-                    </p>
-                    <p className="text-sm text-zinc-600 dark:text-gray-400">
-                      Proyectos
-                    </p>
-                  </div>
-                  <div className="text-center">
-                    <p className="text-2xl font-bold text-zinc-900 dark:text-[#c5fb00]">
-                      {experience.stats.clients}
-                    </p>
-                    <p className="text-sm text-zinc-600 dark:text-gray-400">
-                      Clientes
-                    </p>
-                  </div>
-                  <div className="text-center">
-                    <p className="text-2xl font-bold text-zinc-900 dark:text-[#c5fb00]">
-                      {experience.stats.satisfaction}%
-                    </p>
-                    <p className="text-sm text-zinc-600 dark:text-gray-400">
-                      Satisfacción
-                    </p>
-                  </div>
-                </motion.div>
               </div>
+
+              <motion.div
+                className="flex flex-wrap justify-center gap-6"
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                <div className="text-center">
+                  <p className="text-2xl font-bold text-zinc-900 dark:text-[#c5fb00]">
+                    {experience.stats.projects}
+                  </p>
+                  <p className="text-sm text-zinc-600 dark:text-gray-400">
+                    Proyectos
+                  </p>
+                </div>
+                <div className="text-center">
+                  <p className="text-2xl font-bold text-zinc-900 dark:text-[#c5fb00]">
+                    {experience.stats.clients}
+                  </p>
+                  <p className="text-sm text-zinc-600 dark:text-gray-400">
+                    Clientes
+                  </p>
+                </div>
+                <div className="text-center">
+                  <p className="text-2xl font-bold text-zinc-900 dark:text-[#c5fb00]">
+                    {experience.stats.satisfaction}%
+                  </p>
+                  <p className="text-sm text-zinc-600 dark:text-gray-400">
+                    Satisfacción
+                  </p>
+                </div>
+              </motion.div>
 
               <div className="space-y-4">
                 {experience.achievements.map((achievement, i) => (
@@ -127,12 +128,12 @@ export default function ProfessionalExperience() {
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.4, delay: i * 0.1 }}
-                    className="group flex items-start gap-3"
+                    className="group flex flex-col items-center text-center gap-4"
                   >
                     <div className="mt-1.5">
                       <div className="h-2 w-2 rounded-full bg-zinc-900 transition-transform group-hover:scale-150 dark:bg-[#c5fb00]" />
                     </div>
-                    <p className="text-zinc-600 transition-colors group-hover:text-zinc-900 dark:text-gray-400 dark:group-hover:text-white">
+                    <p className="break-words text-zinc-600 transition-colors group-hover:text-zinc-900 dark:text-gray-400 dark:group-hover:text-white">
                       {achievement}
                     </p>
                   </motion.div>
