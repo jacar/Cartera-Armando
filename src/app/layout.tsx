@@ -10,6 +10,7 @@ import ClientSplashCursor from "@/components/ui/ClientSplashCursor";
 import MobileOptimizer from "@/components/MobileOptimizer";
 import ScrollIndicator from "@/components/ui/scroll-indicator";
 import Script from 'next/script';
+import ClientTouchScrollControl from '@/components/ui/ClientTouchScrollControl';
 
 export const metadata: Metadata = {
   title: "Armando Ovalle Jácome - Experto en Desarrollo Web WordPress y SEO",
@@ -86,7 +87,7 @@ export default function RootLayout({
           <ClientSplashCursor />
           
           <Header />
-          <TouchScrollControl />
+          <ClientTouchScrollControl />
           <main className="flex-grow">
             <PageTransition>{children}</PageTransition>
           </main>
