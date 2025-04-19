@@ -1,77 +1,83 @@
 "use client";
 
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
 /**
- * Solución de emergencia para forzar el scroll táctil en dispositivos móviles
- * Aplica una solución directa al problema de scroll en móviles
+ * Solución para habilitar scroll táctil en dispositivos móviles
+ * Asegura que los eventos táctiles no sean bloqueados por otras capas o componentes
  */
 export default function MobileScrollFix() {
-  const isTouching = useRef(false);
-  const lastY = useRef(0);
-
   useEffect(() => {
-    // Solo ejecutar en el cliente y en dispositivos móviles
+    // Solo ejecutar en el cliente
     if (typeof window === 'undefined') return;
     
+    // Detectar si es un dispositivo móvil
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
       navigator.userAgent
     ) || window.innerWidth <= 1024;
     
-    if (!isMobile) return;
+    if (!isMobile) return; // Solo aplicar en dispositivos móviles
 
-    const preventDefault = (e: Event) => {
-      // No prevenir por defecto, la lógica decidirá
-    };
-
-    const handleTouchStart = (e: TouchEvent) => {
-      if (e.touches.length === 1) {
-        isTouching.current = true;
-        lastY.current = e.touches[0].clientY;
-      }
-    };
-
-    const handleTouchMove = (e: TouchEvent) => {
-      if (!isTouching.current) return;
-
-      const currentY = e.touches[0].clientY;
-      // Permitir scroll si el movimiento es principalmente vertical
-      // Podríamos añadir una comprobación de deltaX si fuera necesario
-      // Si no queremos prevenir el scroll vertical, no llamamos a e.preventDefault()
+    // Permitir scroll nativo eliminando cualquier bloqueo
+    const enableNativeScroll = () => {
+      // 1. Aplicar configuraciones globales para permitir scroll táctil nativo
+      document.documentElement.style.cssText += '; overflow: auto !important; height: auto !important;';
+      document.body.style.cssText += '; overflow: auto !important; height: auto !important; overscroll-behavior: auto !important;';
+      document.body.style.touchAction = 'auto';
+      document.documentElement.style.touchAction = 'auto';
       
-      // Ejemplo: si quisiéramos prevenir el scroll horizontal, haríamos algo como:
-      // const currentX = e.touches[0].clientX;
-      // if (Math.abs(currentX - lastX.current) > Math.abs(currentY - lastY.current)) {
-      //   e.preventDefault();
-      // }
-
-      lastY.current = currentY;
+      // 2. Remover cualquier estilo fixed de cuerpo que pueda bloquear scroll
+      document.body.classList.remove('fixed', 'overflow-hidden', 'no-scroll');
+      
+      // 3. Eliminar cualquier manejador de eventos que prevenga el comportamiento predeterminado
+      const originalPreventDefault = Event.prototype.preventDefault;
+      Event.prototype.preventDefault = function() {
+        if (this.type !== 'touchmove' && this.type !== 'touchstart' && this.type !== 'wheel') {
+          originalPreventDefault.call(this);
+        }
+      };
+      
+      // 4. Asegurar que todos los contenedores principales permitan scroll
+      const mainElements = document.querySelectorAll('main, [role="main"], #__next, #root');
+      mainElements.forEach(el => {
+        if (el instanceof HTMLElement) {
+          el.style.cssText += '; overflow: visible !important; height: auto !important;';
+          el.style.touchAction = 'auto';
+        }
+      });
     };
 
-    const handleTouchEnd = () => {
-      isTouching.current = false;
-    };
+    // Ejecutar la corrección inmediatamente
+    enableNativeScroll();
+    
+    // También ejecutar después de cada cambio en el DOM que podría afectar el scroll
+    const observer = new MutationObserver(() => {
+      enableNativeScroll();
+    });
+    
+    observer.observe(document.body, { 
+      subtree: true, 
+      childList: true,
+      attributes: true, 
+      attributeFilter: ['style', 'class']
+    });
 
-    // Importante: passive: false es necesario para poder llamar a preventDefault
-    // si decidimos hacerlo dentro de handleTouchMove.
-    // Si NUNCA vamos a prevenir, podemos poner passive: true para mejor rendimiento.
-    // Por ahora, dejémoslo en false por si necesitamos prevenir gestos.
-    window.addEventListener('touchstart', handleTouchStart, { passive: false });
-    window.addEventListener('touchmove', handleTouchMove, { passive: false });
-    window.addEventListener('touchend', handleTouchEnd, { passive: false });
-    window.addEventListener('touchcancel', handleTouchEnd, { passive: false });
-
-    // Prevenir comportamiento por defecto en body puede ser necesario
-    // document.body.addEventListener('touchmove', preventDefault, { passive: false });
-
+    // Agregar event listeners con passive: true para mejorar rendimiento
+    document.addEventListener('touchstart', () => {}, { passive: true });
+    document.addEventListener('touchmove', () => {}, { passive: true });
+    document.addEventListener('wheel', () => {}, { passive: true });
+    
     return () => {
-      window.removeEventListener('touchstart', handleTouchStart);
-      window.removeEventListener('touchmove', handleTouchMove);
-      window.removeEventListener('touchend', handleTouchEnd);
-      window.removeEventListener('touchcancel', handleTouchEnd);
-      // document.body.removeEventListener('touchmove', preventDefault);
+      // Restaurar comportamientos por defecto al desmontar
+      observer.disconnect();
+      
+      // Restaurar el método original preventDefault
+      if (Event.prototype.preventDefault.__proto__) {
+        Event.prototype.preventDefault = Event.prototype.preventDefault.__proto__;
+      }
     };
   }, []);
 
-  return null; // Este componente no renderiza nada
+  // Este componente no renderiza nada visible
+  return null;
 }

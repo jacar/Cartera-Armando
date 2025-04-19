@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { CircleDashed } from "@phosphor-icons/react";
@@ -10,24 +10,40 @@ import { useTheme } from "next-themes";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const { theme } = useTheme();
+  
+  // Evitar problemas de hidratación SSR
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <header className="fixed top-0 left-0 z-50 w-full bg-zinc-100 text-zinc-900 dark:bg-black dark:text-white">
       <div className="mx-auto flex max-w-[1400px] items-center justify-between px-4 py-3 sm:px-6 sm:py-4">
         <Link href="/" className="flex items-center gap-2">
-          {/* Mostrar logo oscuro solo si theme es 'dark', en cualquier otro caso (light, system, undefined), mostrar el claro */}
-          {theme === 'dark' ? (
+          {!mounted ? (
+            <div className="h-8 w-[100px] rounded bg-gray-200 dark:bg-gray-800 animate-pulse" />
+          ) : theme === 'dark' ? (
             <img
-              src="https://www.webcincodev.com/blog/wp-content/uploads/2025/04/lofoweb2.svg"
+              src="https://www.webcincodev.com/blog/wp-content/uploads/2025/04/lofoweb2-1s.png"
               alt="Logo Dark"
               className="h-8 w-auto min-w-[100px] sm:h-12"
               loading="eager"
               style={{ height: '48px', width: 'auto', display: 'block' }}
               width="140"
               height="48"
+              onLoad={(e) => {
+                // Asegurarse que la imagen se carga completamente
+                e.currentTarget.style.opacity = '1';
+              }}
+              onError={(e) => {
+                // Fallback si la imagen falla
+                e.currentTarget.src = '/favicon.ico';
+                e.currentTarget.style.height = '48px';
+              }}
             />
-          ) : ( // Incluye theme 'light', 'system', o undefined inicial
+          ) : (
             <img
               src="https://www.webcincodev.com/blog/wp-content/uploads/2025/04/lofoweb2-1e.png"
               alt="Logo Color"
@@ -36,6 +52,15 @@ export default function Header() {
               style={{ height: '48px', width: 'auto', display: 'block' }}
               width="140"
               height="48"
+              onLoad={(e) => {
+                // Asegurarse que la imagen se carga completamente
+                e.currentTarget.style.opacity = '1';
+              }}
+              onError={(e) => {
+                // Fallback si la imagen falla
+                e.currentTarget.src = '/favicon.ico';
+                e.currentTarget.style.height = '48px';
+              }}
             />
           )}
           {/* Fin de la lógica del logo */}
@@ -84,6 +109,7 @@ export default function Header() {
                 repeat: Infinity,
                 ease: "linear",
               }}
+              className="hidden sm:block"
             >
               <CircleDashed
                 size={24}
@@ -125,7 +151,7 @@ export default function Header() {
             initial={{ opacity: 0, x: -300 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -300 }}
-            transition={{ type: "spring", damping: 25 }}
+            transition={{ type: "spring", damping: 25, stiffness: 100 }}
             className="fixed left-0 top-0 z-50 h-full w-[280px] overflow-y-auto border-r border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-black lg:hidden"
           >
             <div className="flex justify-end p-4">
