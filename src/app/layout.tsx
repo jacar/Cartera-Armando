@@ -65,6 +65,7 @@ export default function RootLayout({
     >
       <head>
         <meta name="google-adsense-account" content="ca-pub-3735557735218596" />
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3735557735218596" crossorigin="anonymous"></script>
         {/* Preconectar con dominios externos para acelerar carga */}
         <link
           rel="preconnect"
