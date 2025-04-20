@@ -161,7 +161,7 @@ export default function Work() {
 
   return (
     <section className="min-h-screen pt-40 sm:pt-32 md:pt-48 lg:pt-56 scroll-mt-40" id="work">
-      <div className="mx-auto max-w-[1400px] px-4 md:px-6">
+      <div className="mx-auto max-w-[1400px] px-0">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -221,7 +221,7 @@ export default function Work() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="mb-32 mt-32"
+          className="mb-16 mt-16 sm:mb-32 sm:mt-32"
         >
           <div className="mb-16 text-center">
             <h2 className="mb-4 text-2xl font-bold text-zinc-900 dark:text-[#c5fb00] md:mb-6 md:text-4xl lg:text-5xl">
