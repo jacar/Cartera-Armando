@@ -8,7 +8,7 @@ import ProfessionalExperience from "@/components/ProfessionalExperience";
 
 export default function HomePage() {
   return (
-    <main>
+    <main className="space-y-[90px] sm:space-y-0">
       <ClientHomeLoader />
       <About />
       <Services />
