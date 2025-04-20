@@ -6,9 +6,9 @@ import { Code2, Palette, Laptop, Zap } from "lucide-react";
 const services = [
   {
     icon: <Code2 size={32} />,
-    title: "Desarrollo Web",
+    title: "Desarrollo Web Profesional",
     description:
-      "Creación de sitios web modernos y aplicaciones web utilizando las últimas tecnologías.",
+      "Creación de sitios web modernos y aplicaciones web utilizando las últimas tecnologías. Desarrollo soluciones digitales escalables con énfasis en rendimiento, diseño y experiencia de usuario. Implementación de interfaces intuitivas y funcionalidades avanzadas para una presencia web excepcional.",
   },
   {
     icon: <Palette size={32} />,
