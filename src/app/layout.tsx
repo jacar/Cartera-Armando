@@ -9,8 +9,8 @@ import { PageTransition } from "@/components/ui/page-transition";
 import ClientSplashCursor from "@/components/ui/ClientSplashCursor";
 import MobileOptimizer from "@/components/MobileOptimizer";
 import ScrollIndicator from "@/components/ui/scroll-indicator";
-import Script from 'next/script';
-import ClientTouchScrollControl from '@/components/ui/ClientTouchScrollControl';
+import Script from "next/script";
+import ClientTouchScrollControl from "@/components/ui/ClientTouchScrollControl";
 
 export const metadata: Metadata = {
   title: "Armando Ovalle Jácome - Experto en Desarrollo Web WordPress y SEO",
@@ -64,16 +64,37 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        <meta name="google-adsense-account" content="ca-pub-3735557735218596" />
         {/* Preconectar con dominios externos para acelerar carga */}
-        <link rel="preconnect" href="https://www.webcincodev.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        
+        <link
+          rel="preconnect"
+          href="https://www.webcincodev.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preconnect"
+          href="https://fonts.googleapis.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+
         {/* Precargar imágenes críticas */}
-        <link rel="preload" href="https://www.webcincodev.com/blog/wp-content/uploads/2025/04/lofoweb2-1s.png" as="image" />
-        <link rel="preload" href="https://www.webcincodev.com/blog/wp-content/uploads/2025/04/lofoweb2-1e.png" as="image" />
+        <link
+          rel="preload"
+          href="https://www.webcincodev.com/blog/wp-content/uploads/2025/04/lofoweb2-1s.png"
+          as="image"
+        />
+        <link
+          rel="preload"
+          href="https://www.webcincodev.com/blog/wp-content/uploads/2025/04/lofoweb2-1e.png"
+          as="image"
+        />
       </head>
-      <body className="bg-background text-foreground overscroll-y-auto touch-auto">
+      <body className="touch-auto overscroll-y-auto bg-background text-foreground">
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
@@ -82,20 +103,20 @@ export default function RootLayout({
         >
           {/* Optimizador unificado para rendimiento móvil */}
           <MobileOptimizer />
-          
+
           {/* SplashCursor solo para escritorio */}
           <ClientSplashCursor />
-          
+
           <Header />
           <ClientTouchScrollControl />
           <main className="container flex-grow">
             <PageTransition>{children}</PageTransition>
           </main>
           <Footer />
-          
+
           {/* Indicador de desplazamiento para dispositivos móviles */}
           <ScrollIndicator />
-          
+
           {/* Script de optimización de rendimiento con prioridad afterInteractive */}
           {/* Script de optimización simplificado para evitar errores */}
           <Script
@@ -127,7 +148,7 @@ export default function RootLayout({
                   // Aplicar optimizaciones básicas inmediatamente
                   applyBasicOptimizations();
                 })();
-              `
+              `,
             }}
           />
         </ThemeProvider>

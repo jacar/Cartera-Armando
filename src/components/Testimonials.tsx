@@ -2,13 +2,8 @@
 
 import { motion } from "framer-motion";
 import { Star } from "lucide-react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
 import { Waves } from "@/components/ui/waves-background";
 import { Squares } from "@/components/ui/squares-background";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
 
 const testimonials = [
   {
@@ -101,62 +96,44 @@ export default function Testimonials() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="relative"
+          className="mb-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
-          <Swiper
-            modules={[Navigation, Pagination]}
-            spaceBetween={30}
-            slidesPerView={1}
-            navigation
-            pagination={{ clickable: true }}
-            breakpoints={{
-              640: {
-                slidesPerView: 2,
-              },
-              1024: {
-                slidesPerView: 3,
-              },
-            }}
-            className="testimonials-swiper !pb-16"
-          >
-            {testimonials.map((testimonial, index) => (
-              <SwiperSlide key={index}>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  whileHover={{
-                    scale: 1.02,
-                    rotateX: 5,
-                    rotateY: 5,
-                    transition: { duration: 0.2 },
-                  }}
-                  className="flex h-full transform-gpu flex-col rounded-xl bg-zinc-100 p-6 dark:bg-[#18181b]"
-                  style={{ perspective: "1000px" }}
-                >
-                  <div className="mb-4 flex items-center gap-4">
-                    <img
-                      src={testimonial.image}
-                      alt={testimonial.name}
-                      className="h-16 w-16 rounded-full object-cover"
-                    />
-                    <div>
-                      <h3 className="font-semibold text-zinc-900 dark:text-white">
-                        {testimonial.name}
-                      </h3>
-                      <p className="text-sm text-zinc-600 dark:text-gray-400">
-                        {testimonial.role}
-                      </p>
-                    </div>
-                  </div>
-                  <StarRating rating={testimonial.rating} />
-                  <p className="mt-4 flex-grow text-zinc-600 dark:text-gray-300">
-                    {testimonial.quote}
+          {testimonials.map((testimonial, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              whileHover={{
+                scale: 1.02,
+                rotateX: 5,
+                rotateY: 5,
+                transition: { duration: 0.2 },
+              }}
+              className="flex h-full transform-gpu flex-col rounded-xl bg-zinc-100 p-6 dark:bg-[#18181b]"
+              style={{ perspective: "1000px" }}
+            >
+              <div className="mb-4 flex items-center gap-4">
+                <img
+                  src={testimonial.image}
+                  alt={testimonial.name}
+                  className="h-16 w-16 rounded-full object-cover"
+                />
+                <div>
+                  <h3 className="font-semibold text-zinc-900 dark:text-white">
+                    {testimonial.name}
+                  </h3>
+                  <p className="text-sm text-zinc-600 dark:text-gray-400">
+                    {testimonial.role}
                   </p>
-                </motion.div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+                </div>
+              </div>
+              <StarRating rating={testimonial.rating} />
+              <p className="mt-4 flex-grow text-zinc-600 dark:text-gray-300">
+                {testimonial.quote}
+              </p>
+            </motion.div>
+          ))}
         </motion.div>
       </div>
     </section>

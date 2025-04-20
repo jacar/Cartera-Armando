@@ -160,7 +160,10 @@ export default function Work() {
   });
 
   return (
-    <section className="min-h-screen pt-40 sm:pt-32 md:pt-48 lg:pt-56 scroll-mt-40" id="work">
+    <section
+      className="min-h-screen scroll-mt-40 pt-40 sm:pt-32 md:pt-48 lg:pt-56"
+      id="work"
+    >
       <div className="mx-auto max-w-[1400px] px-0">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -169,7 +172,7 @@ export default function Work() {
           ref={ref}
           className="mb-16 text-center"
         >
-          <h2 className="mb-4 text-2xl font-bold text-zinc-900 dark:text-white md:mb-6 md:text-4xl lg:text-5xl">
+          <h2 className="-mt-[50px] mb-4 text-2xl font-bold text-zinc-900 dark:text-white sm:mt-0 md:mb-6 md:text-4xl lg:text-5xl">
             Proyectos Destacados
           </h2>
           <p className="mx-auto max-w-2xl text-sm text-zinc-600 dark:text-gray-300 md:text-base">

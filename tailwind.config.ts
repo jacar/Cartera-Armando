@@ -1,7 +1,7 @@
 import { type Config } from "tailwindcss";
 import defaultTheme from "tailwindcss/defaultTheme";
 import animate from "tailwindcss-animate";
-import typography from '@tailwindcss/typography';
+import typography from "@tailwindcss/typography";
 import flattenColorPalette from "tailwindcss/lib/util/flattenColorPalette";
 
 export default {
@@ -10,7 +10,7 @@ export default {
   theme: {
     container: {
       center: true,
-      padding: { DEFAULT: '1rem', sm: '2rem', lg: '4rem' },
+      padding: { DEFAULT: "1rem", sm: "2rem", lg: "4rem" },
     },
     extend: {
       fontFamily: {

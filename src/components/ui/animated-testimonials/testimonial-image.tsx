@@ -50,7 +50,7 @@ export function TestimonialImage({
               ease: "easeOut",
               staggerChildren: 0.1,
             }}
-            className="absolute inset-0 origin-bottom transform-gpu"
+            className="absolute inset-x-0 top-[200px] origin-bottom transform-gpu sm:top-0"
           >
             <div className="group relative">
               <div className="animate-tilt absolute -inset-0.5 rounded-3xl bg-gradient-to-r from-[#c5fb00] to-[#18181b] opacity-75 blur transition duration-1000 group-hover:opacity-100 group-hover:duration-200"></div>

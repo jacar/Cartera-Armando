@@ -1206,7 +1206,7 @@ function SplashCursor({
     window.addEventListener("touchstart", (e) => {
       // Deshabilitamos este evento en móviles para no interferir con el scroll
       if (window.innerWidth <= 768) return;
-      
+
       const touches = e.targetTouches;
       let pointer = pointers[0];
       for (let i = 0; i < touches.length; i++) {
@@ -1221,7 +1221,7 @@ function SplashCursor({
       (e) => {
         // Deshabilitamos este evento en dispositivos móviles para no interferir con el scroll
         if (window.innerWidth <= 768) return;
-        
+
         const touches = e.targetTouches;
         let pointer = pointers[0];
         for (let i = 0; i < touches.length; i++) {
@@ -1236,7 +1236,7 @@ function SplashCursor({
     window.addEventListener("touchend", (e) => {
       // Deshabilitamos este evento en dispositivos móviles para no interferir con el scroll
       if (window.innerWidth <= 768) return;
-      
+
       const touches = e.changedTouches;
       let pointer = pointers[0];
       for (let i = 0; i < touches.length; i++) {

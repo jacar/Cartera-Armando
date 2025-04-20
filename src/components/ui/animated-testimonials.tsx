@@ -53,15 +53,20 @@ export function AnimatedTestimonials({
   };
 
   return (
-    <div className={cn("mb-20 w-full max-w-full px-2 sm:px-4 py-4 sm:py-20", className)}>
-      <div className="relative mx-auto max-w-full sm:max-w-[1000px] grid grid-cols-1 sm:grid-cols-2 gap-y-[50px] gap-x-4 sm:gap-y-6 sm:gap-x-12 items-center">
+    <div
+      className={cn(
+        "-mt-[250px] mb-20 w-full max-w-full px-2 py-4 sm:mt-0 sm:px-4 sm:py-20",
+        className,
+      )}
+    >
+      <div className="relative mx-auto grid max-w-full grid-cols-1 items-center gap-x-4 gap-y-[50px] sm:max-w-[1000px] sm:grid-cols-2 sm:gap-x-12 sm:gap-y-6">
         <div className="sm:mb-0">
           <TestimonialImage testimonials={testimonials} active={active} />
         </div>
-        <div className="flex flex-col h-[400px] sm:h-[600px] rounded-xl border border-pink-200 bg-pink-50 px-4 sm:px-8 py-6 sm:py-12 dark:border-pink-900 dark:bg-[#18181b]">
+        <div className="flex h-[400px] flex-col rounded-xl border border-pink-200 bg-pink-50 px-4 py-6 dark:border-pink-900 dark:bg-[#18181b] sm:h-[600px] sm:px-8 sm:py-12">
           <div className="flex-grow">
             <TestimonialContent testimonial={testimonials[active]} />
-            <div className="flex gap-4 pt-8 sm:pt-12 justify-center sm:justify-start">
+            <div className="flex justify-center gap-4 pt-8 sm:justify-start sm:pt-12">
               <button
                 onClick={handlePrev}
                 className="group/button flex h-7 w-7 items-center justify-center rounded-full bg-secondary"

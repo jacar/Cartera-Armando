@@ -80,5 +80,8 @@
   "ct3aMetadata": {
     "initVersion": "7.38.1"
   },
-  "packageManager": "pnpm@10.2.0"
+  "packageManager": "pnpm@10.2.0",
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.16"
+  }
 }

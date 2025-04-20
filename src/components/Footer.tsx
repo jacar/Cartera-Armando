@@ -10,7 +10,7 @@ export default function Footer() {
     <footer className="mt-32 bg-zinc-100 py-8 dark:bg-[#18181b]">
       <div className="mx-auto max-w-[1400px] px-6">
         <div className="flex flex-col items-center justify-between gap-8">
-          <nav className="flex flex-wrap justify-center gap-4 sm:gap-8 px-4 sm:px-0">
+          <nav className="flex flex-wrap justify-center gap-4 px-4 sm:gap-8 sm:px-0">
             {[
               "INICIO",
               "SOBRE MÍ",
@@ -30,7 +30,7 @@ export default function Footer() {
                 <motion.a
                   key={item}
                   href={sectionId}
-                  className="text-xs sm:text-sm text-gray-400 transition-colors hover:text-[#c5fb00]"
+                  className="text-xs text-gray-400 transition-colors hover:text-[#c5fb00] sm:text-sm"
                   whileHover={{ scale: 1.05 }}
                   onClick={(e) => {
                     e.preventDefault();

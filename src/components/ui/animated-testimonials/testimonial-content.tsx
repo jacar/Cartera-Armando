@@ -38,7 +38,7 @@ export function TestimonialContent({
         transform: "translateZ(0)",
       }}
     >
-      <motion.p className="mb-8 text-xl leading-relaxed text-zinc-800 dark:text-gray-200">
+      <motion.p className="mb-8 whitespace-normal break-words text-base leading-relaxed text-zinc-800 dark:text-gray-200 sm:text-xl">
         {testimonial.quote.split(" ").map((word, index) => (
           <motion.span
             key={index}

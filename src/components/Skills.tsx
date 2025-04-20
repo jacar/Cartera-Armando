@@ -80,7 +80,7 @@ export default function Skills() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-2">
           {skills.map((category, index) => (
             <motion.div
               key={category.category}
@@ -99,17 +99,17 @@ export default function Skills() {
                 </h3>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 {category.tools.map((tool) => (
                   <motion.div
                     key={tool.name}
                     whileHover={{ scale: 1.05 }}
-                    className="flex items-center gap-3 rounded-lg bg-zinc-200 p-4 transition-colors hover:bg-zinc-300 dark:bg-[#27272A] dark:hover:bg-[#323232]"
+                    className="flex items-center gap-3 rounded-lg bg-zinc-200 p-2 transition-colors hover:bg-zinc-300 dark:bg-[#27272A] dark:hover:bg-[#323232] sm:p-4"
                   >
                     <div className="text-zinc-900 dark:text-[#c5fb00]">
                       {tool.icon}
                     </div>
-                    <span className="text-zinc-900 dark:text-white">
+                    <span className="whitespace-normal break-words text-zinc-900 dark:text-white">
                       {tool.name}
                     </span>
                   </motion.div>

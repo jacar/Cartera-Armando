@@ -10,9 +10,11 @@ export function cn(...inputs: ClassValue[]) {
  * @returns {boolean} - True si es un dispositivo móvil
  */
 export function isMobile(): boolean {
-  if (typeof window === 'undefined') return false;
-  
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-    navigator.userAgent
-  ) || window.innerWidth <= 1024;
+  if (typeof window === "undefined") return false;
+
+  return (
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent,
+    ) || window.innerWidth <= 1024
+  );
 }

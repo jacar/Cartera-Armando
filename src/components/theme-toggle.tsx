@@ -21,7 +21,9 @@ export function ThemeToggle() {
       className="relative rounded-full bg-[#18181b] p-2 transition-colors hover:bg-[#27272A] dark:bg-zinc-800 dark:hover:bg-zinc-700"
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
-      aria-label={theme === "light" ? "Activar modo oscuro" : "Activar modo claro"}
+      aria-label={
+        theme === "light" ? "Activar modo oscuro" : "Activar modo claro"
+      }
     >
       <AnimatePresence mode="wait" initial={false}>
         {theme === "light" ? (
@@ -33,11 +35,7 @@ export function ThemeToggle() {
             transition={{ duration: 0.2 }}
             className="flex items-center justify-center"
           >
-            <Sun 
-              size={20} 
-              weight="duotone" 
-              className="text-yellow-300" 
-            />
+            <Sun size={20} weight="duotone" className="text-yellow-300" />
           </motion.div>
         ) : (
           <motion.div
@@ -48,11 +46,7 @@ export function ThemeToggle() {
             transition={{ duration: 0.2 }}
             className="flex items-center justify-center"
           >
-            <MoonStars 
-              size={20} 
-              weight="duotone" 
-              className="text-[#c5fb00]" 
-            />
+            <MoonStars size={20} weight="duotone" className="text-[#c5fb00]" />
           </motion.div>
         )}
       </AnimatePresence>

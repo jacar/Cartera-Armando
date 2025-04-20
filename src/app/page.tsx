@@ -1,4 +1,4 @@
-import ClientHomeLoader from '@/components/ui/ClientHomeLoader';
+import ClientHomeLoader from "@/components/ui/ClientHomeLoader";
 import About from "@/components/About";
 import Services from "@/components/Services";
 import Work from "@/components/Work";

@@ -31,10 +31,10 @@ const LazySplineScene = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="flex h-full w-full items-center justify-center bg-zinc-100/20 backdrop-blur-sm rounded-lg dark:bg-zinc-900/30 animate-pulse">
+      <div className="flex h-full w-full animate-pulse items-center justify-center rounded-lg bg-zinc-100/20 backdrop-blur-sm dark:bg-zinc-900/30">
         <div className="flex flex-col items-center justify-center gap-4">
-          <div className="h-24 w-24 rounded-full bg-zinc-200 dark:bg-zinc-800 animate-pulse"></div>
-          <div className="h-4 w-32 rounded bg-zinc-200 dark:bg-zinc-800 animate-pulse"></div>
+          <div className="h-24 w-24 animate-pulse rounded-full bg-zinc-200 dark:bg-zinc-800"></div>
+          <div className="h-4 w-32 animate-pulse rounded bg-zinc-200 dark:bg-zinc-800"></div>
         </div>
       </div>
     ),
@@ -43,13 +43,16 @@ const LazySplineScene = dynamic(
 
 // Pre-cargar componentes que se mostrarán inmediatamente
 const prefetchComponents = () => {
-  if (typeof window !== 'undefined') {
+  if (typeof window !== "undefined") {
     // Prefetch en tiempo inactivo para no bloquear renderizado inicial
-    if ('requestIdleCallback' in window) {
-      window.requestIdleCallback(() => {
-        import("@/components/ui/splite");
-        import("@/components/ui/MobileHeroSlider");
-      }, { timeout: 2000 });
+    if ("requestIdleCallback" in window) {
+      window.requestIdleCallback(
+        () => {
+          import("@/components/ui/splite");
+          import("@/components/ui/MobileHeroSlider");
+        },
+        { timeout: 2000 },
+      );
     } else {
       setTimeout(() => {
         import("@/components/ui/splite");
@@ -65,11 +68,17 @@ function HomeComponent() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   // Memoizar URLs de recursos para evitar rerenderings
-  const resources = useMemo(() => ({
-    mobileImage: "https://www.webcincodev.com/blog/wp-content/uploads/2025/03/image_fx_-2025-03-11T111412.287.png",
-    darkBackground: "https://www.webcincodev.com/blog/wp-content/uploads/2025/03/Scene-12.png",
-    lightBackground: "https://www.webcincodev.com/blog/wp-content/uploads/2025/03/image_fx_-2025-03-20T212621.296-1.png"
-  }), []);
+  const resources = useMemo(
+    () => ({
+      mobileImage:
+        "https://www.webcincodev.com/blog/wp-content/uploads/2025/03/image_fx_-2025-03-11T111412.287.png",
+      darkBackground:
+        "https://www.webcincodev.com/blog/wp-content/uploads/2025/03/Scene-12.png",
+      lightBackground:
+        "https://www.webcincodev.com/blog/wp-content/uploads/2025/03/image_fx_-2025-03-20T212621.296-1.png",
+    }),
+    [],
+  );
 
   // Optimización con debounced resize y detección móvil mejorada
   useEffect(() => {
@@ -79,20 +88,20 @@ function HomeComponent() {
         setIsMobileDevice(isMobile());
       };
       checkMobile();
-      
+
       // Pre-cargar componentes de forma óptima
       prefetchComponents();
-      
+
       // Inicializar estado de carga
       setIsLoaded(true);
-      
+
       // Usar debounce para mejor rendimiento
       let timeoutId: NodeJS.Timeout;
       const debouncedResize = () => {
         clearTimeout(timeoutId);
         timeoutId = setTimeout(checkMobile, 100);
       };
-      
+
       window.addEventListener("resize", debouncedResize, { passive: true });
       return () => {
         clearTimeout(timeoutId);
@@ -109,7 +118,7 @@ function HomeComponent() {
         // Usar scrollIntoView con opciones optimizadas
         workSection.scrollIntoView({
           behavior: "smooth",
-          block: "start"
+          block: "start",
         });
       }
     }
@@ -119,37 +128,38 @@ function HomeComponent() {
   return (
     <section className="relative flex min-h-screen items-center justify-center px-4 pb-[120px] sm:px-6">
       {/* Fondo optimizado */}
+      <div
+        className="absolute inset-0 z-0 w-screen"
+        style={{
+          marginLeft: "calc(-50vw + 50%)",
+          marginRight: "calc(-50vw + 50%)",
+        }}
+      >
         <div
-          className="absolute inset-0 z-0 w-screen"
+          className="absolute inset-0 h-full w-full bg-cover bg-center transition-opacity duration-300"
           style={{
-            marginLeft: "calc(-50vw + 50%)",
-            marginRight: "calc(-50vw + 50%)",
-          }}
-        >
-          <div 
-            className="absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-300"
-            style={{
-              backgroundImage: theme === "dark" 
+            backgroundImage:
+              theme === "dark"
                 ? `url('${resources.darkBackground}')`
                 : `url('${resources.lightBackground}')`,
-              opacity: 0.4
+            opacity: 0.4,
+          }}
+          loading="lazy"
+        />
+        <motion.div
+          className="absolute inset-0"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div
+            className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50 transition-all duration-300"
+            style={{
+              opacity: theme === "dark" ? 1 : 0,
             }}
-            loading="lazy"
           />
-          <motion.div
-            className="absolute inset-0"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            <div
-              className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50 transition-all duration-300"
-              style={{
-                opacity: theme === "dark" ? 1 : 0,
-              }}
-            />
-          </motion.div>
-        </div>
+        </motion.div>
+      </div>
 
       <div className="z-10 mx-auto w-full max-w-[1400px]">
         <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12">
@@ -164,7 +174,7 @@ function HomeComponent() {
               x: 0,
             }}
             transition={{
-              duration: 0.8
+              duration: 0.8,
             }}
             className="order-1 text-center lg:text-left"
           >
@@ -275,9 +285,9 @@ function HomeComponent() {
               scale: 1,
             }}
             transition={{
-              duration: 0.8
+              duration: 0.8,
             }}
-            className="relative order-2 mt-0 h-[500px] sm:mt-0 sm:h-[700px] lg:mt-0 flex items-center justify-center z-10 overflow-visible"
+            className="relative z-10 order-2 mt-0 flex h-[500px] items-center justify-center overflow-visible sm:mt-0 sm:h-[700px] lg:mt-0"
           >
             <div className="flex h-full w-full items-center justify-center overflow-visible rounded-2xl">
               {isMobileDevice ? (

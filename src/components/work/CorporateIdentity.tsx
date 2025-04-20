@@ -72,12 +72,12 @@ export function CorporateIdentity() {
           transition={{
             duration: 0.6,
           }}
-          className="mb-10 sm:mb-16 lg:mb-20 text-center"
+          className="mb-10 text-center sm:mb-16 lg:mb-20"
         >
-          <h2 className="mb-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-zinc-900 dark:text-[#c5fb00] leading-tight sm:leading-tight lg:leading-tight">
+          <h2 className="mb-4 text-3xl font-bold leading-tight text-zinc-900 dark:text-[#c5fb00] sm:text-4xl sm:leading-tight lg:text-5xl lg:leading-tight">
             Identidad Corporativa
           </h2>
-          <p className="mx-auto max-w-md sm:max-w-2xl text-base sm:text-lg text-zinc-600 dark:text-white">
+          <p className="mx-auto max-w-md text-base text-zinc-600 dark:text-white sm:max-w-2xl sm:text-lg">
             Creamos identidades visuales que transmiten la esencia de tu marca y
             conectan con tu audiencia.
           </p>
@@ -86,7 +86,7 @@ export function CorporateIdentity() {
         <AnimatedTestimonials
           testimonials={testimonials}
           autoplay={true}
-          className="mb-10 sm:mb-20 px-0 sm:px-6"
+          className="mb-10 px-0 sm:mb-20 sm:px-6"
         />
       </div>
     </section>

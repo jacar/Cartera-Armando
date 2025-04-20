@@ -47,7 +47,7 @@ const experiences = [
 
 export default function ProfessionalExperience() {
   return (
-    <section className="relative min-h-screen pt-32 px-4 sm:px-6 md:px-8">
+    <section className="relative min-h-screen overflow-x-hidden px-4 pt-32 sm:px-6 md:px-8">
       <div className="mx-auto max-w-[1400px] px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -56,10 +56,10 @@ export default function ProfessionalExperience() {
           viewport={{ once: true }}
           className="mb-16 text-center"
         >
-          <h2 className="mb-6 text-2xl sm:text-3xl md:text-4xl font-bold text-zinc-900 dark:text-[#c5fb00]">
+          <h2 className="mb-6 break-words text-2xl font-bold text-zinc-900 dark:text-[#c5fb00] sm:text-3xl md:text-4xl">
             Experiencia Profesional
           </h2>
-          <p className="mx-auto max-w-2xl text-zinc-600 text-sm sm:text-base md:text-lg">
+          <p className="mx-auto max-w-2xl break-words text-sm text-zinc-600 sm:text-base md:text-lg">
             Trayectoria profesional en desarrollo web y gestión de proyectos
             digitales
           </p>
@@ -73,17 +73,17 @@ export default function ProfessionalExperience() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
               viewport={{ once: true }}
-              className="group rounded-xl bg-zinc-100 p-6 text-center transition-colors hover:bg-zinc-200 dark:bg-[#18181b] dark:hover:bg-[#27272A] w-full overflow-hidden whitespace-normal break-words"
+              className="group w-full overflow-hidden whitespace-normal break-words rounded-xl bg-zinc-100 p-6 text-center transition-colors hover:bg-zinc-200 dark:bg-[#18181b] dark:hover:bg-[#27272A]"
             >
               <div className="mb-6 flex flex-col items-center text-center">
                 <div>
-                  <h3 className="mb-2 text-xl sm:text-2xl md:text-3xl font-bold text-zinc-900 dark:text-white break-words">
+                  <h3 className="mb-2 break-words text-xl font-bold text-zinc-900 dark:text-white sm:text-2xl md:text-3xl">
                     {experience.company}
                   </h3>
-                  <p className="text-sm sm:text-base md:text-lg text-black dark:text-[#c5fb00] break-words">
+                  <p className="break-words text-sm text-black dark:text-[#c5fb00] sm:text-base md:text-lg">
                     {experience.role}
                   </p>
-                  <p className="text-xs sm:text-sm md:text-base text-zinc-600 dark:text-gray-400 break-words">
+                  <p className="break-words text-xs text-zinc-600 dark:text-gray-400 sm:text-sm md:text-base">
                     {experience.period}
                   </p>
                 </div>
@@ -128,7 +128,7 @@ export default function ProfessionalExperience() {
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.4, delay: i * 0.1 }}
-                    className="group flex flex-col items-center text-center gap-4"
+                    className="group flex flex-col items-center gap-4 text-center"
                   >
                     <div className="mt-1.5">
                       <div className="h-2 w-2 rounded-full bg-zinc-900 transition-transform group-hover:scale-150 dark:bg-[#c5fb00]" />
@@ -154,7 +154,7 @@ export default function ProfessionalExperience() {
             <h3 className="mb-6 text-2xl font-bold text-zinc-900 dark:text-white">
               Especialización
             </h3>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {[
                 "Desarrollo WordPress Avanzado",
                 "Optimización de Rendimiento Web",
@@ -168,7 +168,9 @@ export default function ProfessionalExperience() {
                   transition={{ duration: 0.4, delay: i * 0.1 }}
                   className="rounded-lg bg-zinc-200 p-4 transition-colors hover:bg-zinc-300 dark:bg-[#27272A] dark:hover:bg-[#323232]"
                 >
-                  <p className="text-zinc-600 dark:text-gray-300">{skill}</p>
+                  <p className="break-words text-zinc-600 dark:text-gray-300">
+                    {skill}
+                  </p>
                 </motion.div>
               ))}
             </div>

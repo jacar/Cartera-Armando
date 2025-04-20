@@ -40,12 +40,5 @@
     ".next/types/**/*.ts",
     "src/styles/global.css"
   ],
-  "exclude": [
-    "node_modules/*",
-    ".next",
-    "out",
-    "build",
-    "dist",
-    "supabase"
-  ]
+  "exclude": ["node_modules/*", ".next", "out", "build", "dist", "supabase"]
 }
