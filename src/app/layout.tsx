@@ -88,7 +88,7 @@ export default function RootLayout({
           
           <Header />
           <ClientTouchScrollControl />
-          <main className="flex-grow">
+          <main className="container flex-grow">
             <PageTransition>{children}</PageTransition>
           </main>
           <Footer />

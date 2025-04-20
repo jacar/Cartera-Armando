@@ -1,12 +1,17 @@
 import { type Config } from "tailwindcss";
 import defaultTheme from "tailwindcss/defaultTheme";
 import animate from "tailwindcss-animate";
+import typography from '@tailwindcss/typography';
 import flattenColorPalette from "tailwindcss/lib/util/flattenColorPalette";
 
 export default {
   darkMode: ["class"],
   content: ["./src/**/*.tsx"],
   theme: {
+    container: {
+      center: true,
+      padding: { DEFAULT: '1rem', sm: '2rem', lg: '4rem' },
+    },
     extend: {
       fontFamily: {
         sans: ["var(--font-geist-sans)", ...defaultTheme.fontFamily.sans],
@@ -92,7 +97,7 @@ export default {
       },
     },
   },
-  plugins: [animate, addVariablesForColors],
+  plugins: [animate, addVariablesForColors, typography],
 } satisfies Config;
 
 function addVariablesForColors({ addBase, theme }: any) {
