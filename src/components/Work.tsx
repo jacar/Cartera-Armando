@@ -160,7 +160,7 @@ export default function Work() {
   });
 
   return (
-    <section className="min-h-screen pt-20 md:pt-32" id="work">
+    <section className="min-h-screen pt-24 sm:pt-20 md:pt-32 lg:pt-40 scroll-mt-20" id="work">
       <div className="mx-auto max-w-[1400px] px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
