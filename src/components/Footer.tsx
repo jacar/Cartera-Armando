@@ -10,7 +10,7 @@ export default function Footer() {
     <footer className="mt-32 bg-zinc-100 py-8 dark:bg-[#18181b]">
       <div className="mx-auto max-w-[1400px] px-6">
         <div className="flex flex-col items-center justify-between gap-8">
-          <nav className="flex items-center gap-8">
+          <nav className="flex flex-wrap justify-center gap-4 sm:gap-8 px-4 sm:px-0">
             {[
               "INICIO",
               "SOBRE MÍ",
@@ -30,7 +30,7 @@ export default function Footer() {
                 <motion.a
                   key={item}
                   href={sectionId}
-                  className="text-sm text-gray-400 transition-colors hover:text-[#c5fb00]"
+                  className="text-xs sm:text-sm text-gray-400 transition-colors hover:text-[#c5fb00]"
                   whileHover={{ scale: 1.05 }}
                   onClick={(e) => {
                     e.preventDefault();
@@ -97,7 +97,7 @@ export default function Footer() {
 
           <div className="text-center">
             <p className="text-sm text-gray-400">
-              © {new Date().getFullYear()} Armando Ovalle Jácome. Todos los
+              {new Date().getFullYear()} Armando Ovalle Jácome. Todos los
               derechos reservados.
             </p>
           </div>

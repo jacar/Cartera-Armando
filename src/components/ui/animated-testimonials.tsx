@@ -53,12 +53,12 @@ export function AnimatedTestimonials({
   };
 
   return (
-    <div className={cn("mb-20 w-full max-w-[100vw] px-2 sm:px-4 py-10 sm:py-20", className)}>
-      <div className="relative mx-auto max-w-[1000px] grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12 items-center">
-        <div className="mb-6 sm:mb-0">
+    <div className={cn("mb-20 w-full max-w-full px-2 sm:px-4 py-4 sm:py-20", className)}>
+      <div className="relative mx-auto max-w-full sm:max-w-[1000px] grid grid-cols-1 sm:grid-cols-2 gap-y-[50px] gap-x-4 sm:gap-y-6 sm:gap-x-12 items-center">
+        <div className="sm:mb-0">
           <TestimonialImage testimonials={testimonials} active={active} />
         </div>
-        <div className="flex flex-col h-auto sm:h-[600px] rounded-xl border border-pink-200 bg-pink-50 px-4 sm:px-8 py-6 sm:py-12 dark:border-pink-900 dark:bg-[#18181b]">
+        <div className="flex flex-col h-[400px] sm:h-[600px] rounded-xl border border-pink-200 bg-pink-50 px-4 sm:px-8 py-6 sm:py-12 dark:border-pink-900 dark:bg-[#18181b]">
           <div className="flex-grow">
             <TestimonialContent testimonial={testimonials[active]} />
             <div className="flex gap-4 pt-8 sm:pt-12 justify-center sm:justify-start">
